@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html">home</a>
+      <a href="account-creation.html">create account</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Création du compte</h1>
+    <p>Veuillez entrer vos informations ci-dessous.</p>
+
+    <form action="../php/create-account.php" method="POST">
+      <input type="text" name="email" placeholder="Adresse email" required>
+      <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+      <input type="password" name="password" placeholder="Mot de passe" required>
+      <input type="password" name="password-confirm" placeholder="Mot de passe (confirmer)" required>
+      <input type="number" name="age" placeholder="Age" required>
+      <button type="submit">Confirmer</button>
+    </form>
+  </main>
+
+  <footer>
+
+  </footer>
+</body>
+</html>
