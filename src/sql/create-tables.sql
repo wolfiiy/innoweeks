@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS t_Account(
+CREATE TABLE t_Account(
    idAccount INT AUTO_INCREMENT,
    accEmail VARCHAR(320) NOT NULL,
    accUsername VARCHAR(64) NOT NULL,
@@ -9,14 +9,14 @@ CREATE TABLE IF NOT EXISTS t_Account(
    UNIQUE(accUsername)
 );
 
-CREATE TABLE IF NOT EXISTS t_Task(
+CREATE TABLE t_Task(
    idTask INT AUTO_INCREMENT,
    tasName VARCHAR(256) NOT NULL,
    tasDescription VARCHAR(1024),
    PRIMARY KEY(idTask)
 );
 
-CREATE TABLE IF NOT EXISTS Complete(
+CREATE TABLE Complete(
    idAccount INT,
    idTask INT,
    PRIMARY KEY(idAccount, idTask),
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Complete(
    FOREIGN KEY(idTask) REFERENCES t_Task(idTask)
 );
 
-CREATE TABLE IF NOT EXISTS Befriend(
+CREATE TABLE Befriend(
    idAccount INT,
    idAccount_1 INT,
    PRIMARY KEY(idAccount, idAccount_1),

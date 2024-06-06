@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         return;
     
     try {
-        $sql = "INSERT INTO formulaires (email, username, password, age) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO t_Account (email, username, password, age) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->execute([$nom, $prenom, $email, $telephone, $message]);
         echo "Formulaire ajouté avec succès";
