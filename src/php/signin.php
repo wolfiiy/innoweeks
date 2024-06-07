@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($hash && password_verify($password, $hash)) {
         $_SESSION['username'] = $username;
         error_log("Sign in successful");
-        header("Location: ../html/index.html");
+        header("Location: ../html/index.php");
         exit();
     } else {
         error_log("Username or password is invalid.");

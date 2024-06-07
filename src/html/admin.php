@@ -1,3 +1,7 @@
+<?php
+  include '../scripts/session-check.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,14 +13,13 @@
 <body>
   <header>
     <img src="../../assets/logo.png" alt="Logotype" id="logo">
-
     <nav>
       <ul>
         <li>
-          <a href="index.html">Accueil</a>
+          <a href="index.php">Accueil</a>
         </li>
         <li>
-          <a href="admin.html">Admin</a>
+          <a href="admin.php">Admin</a>
         </li>
         <li>
           <a href="TODO">Classement</a>
@@ -24,6 +27,15 @@
         <li>
           <a href="signin.html">Compte</a>
         </li>
+
+        <?php
+          if(isset($_SESSION['username']))
+          { ?>
+            <li>
+              <a href="../scripts/signout.php">Déconnexion</a>
+            </li>
+          <?php }
+        ?>
       </ul>
     </nav>
   </header>
@@ -60,7 +72,7 @@
       </p>
 
       <h3>Log out</h3>
-      <?php include '../php/session-check.php'; ?>
+      <?php include '../scripts/session-check.php'; ?>
       <p>
         To log out from <?php echo htmlspecialchars($_SESSION['username']); ?>, click
         <a href="../php/signout.php">here</a>.

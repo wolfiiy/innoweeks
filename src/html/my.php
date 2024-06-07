@@ -1,3 +1,7 @@
+<?php
+include '../scripts/session-check.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +17,7 @@
     <nav>
       <ul>
         <li>
-          <a href="index.html">Accueil</a>
+          <a href="index.php">Accueil</a>
         </li>
         <li>
           <a href="admin.php">Admin</a>
@@ -22,15 +26,24 @@
           <a href="TODO">Classement</a>
         </li>        
         <li>
-          <a href="signin.html">Compte</a>
+          <a href="#">Compte</a>
         </li>
+        
+        <?php
+          if(isset($_SESSION['username']))
+          { ?>
+            <li>
+              <a href="../scripts/signout.php">Déconnexion</a>
+            </li>
+          <?php }
+        ?>
       </ul>
     </nav>
   </header>
 
   <main>
     <div class="content">
-      <h1>Bienvenue</h1>
+      <h1>Mon compte</h1>
     </div>
   </main>
 
