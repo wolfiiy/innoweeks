@@ -1,3 +1,7 @@
+* {
+  font-family: 'Comic Sans MS';
+}
+
 header {
   display: flex;
   flex-flow: row wrap;
