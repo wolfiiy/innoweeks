@@ -24,10 +24,15 @@
         <li>
           <a href="TODO">Classement</a>
         </li>        
-        <li>
-          <a href="signin.html">Compte</a>
-        </li>
 
+        <?php
+          if(!isset($_SESSION['username']))
+          { ?>
+            <li>
+              <a href="signin.html">Connexion</a>
+            </li>
+          <?php }
+        ?>
         <?php
           if(isset($_SESSION['username']))
           { ?>
@@ -72,9 +77,8 @@
       </p>
 
       <h3>Log out</h3>
-      <?php include '../scripts/session-check.php'; ?>
       <p>
-        To log out from <?php echo htmlspecialchars($_SESSION['username']); ?>, click
+        To log out from user "<?php echo htmlspecialchars($_SESSION['username']); ?>", click
         <a href="../scripts/signout.php">here</a>.
       </p>
     </div>

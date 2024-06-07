@@ -25,9 +25,14 @@
         <li>
           <a href="TODO">Classement</a>
         </li>        
-        <li>
-          <a href="signin.html">Compte</a>
-        </li>
+        <?php
+          if(!isset($_SESSION['username']))
+          { ?>
+            <li>
+              <a href="signin.html">Connexion</a>
+            </li>
+          <?php }
+        ?>
         <?php
           if(isset($_SESSION['username']))
           { ?>
