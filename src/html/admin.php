@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../styles/main.css">
-  <link rel="stylesheet" href="../styles/form.css">
   <title>Admin dashboard</title>
 </head>
 <body>
@@ -59,10 +58,15 @@
         To create required tables, click
         <a href="../php/create-tables.php">here</a>.
       </p>
+
+      <h3>Log out</h3>
+      <?php include '../php/session-check.php'; ?>
+      <p>
+        To log out from <?php echo htmlspecialchars($_SESSION['username']); ?>, click
+        <a href="../php/signout.php">here</a>.
+      </p>
     </div>
-
   </main>
-
 
   <footer>
     <p>
