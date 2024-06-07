@@ -1,21 +1,10 @@
 <?php
-$dbPath = '../../db/aaa.db';
+include "connect.php";
 
-$server = "localhost";
-$username = "root";
-$password = "";
-$database = "aaa";
-
-$conn = new mysqli($server, $username, $password);
-
-if ($conn -> connect_error) {
-    die ("Connection failed: " . $conn -> connect_error);
-}
-
-// Create database
-$sql = "CREATE DATABASE " . $database;
+$sql = "CREATE DATABASE " . $databaseName;
 
 // Execute the query and check for success
+echo "Attempting to create database...";
 if ($conn -> query($sql) === TRUE) {
     echo "Database created successfully.";
 } else {

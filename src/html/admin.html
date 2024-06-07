@@ -28,9 +28,12 @@
   </header>
 
   <main>
-    <h1>Création du compte</h1>
-    <p>Veuillez entrer vos informations ci-dessous.</p>
+    <h1>Administration</h1>
+    <h2>Database</h2>
+    Database-related actions.
 
+    <h3>Account creation</h3>
+    <p>Fill in the form.</p>
     <form action="../php/create-account.php" method="POST">
       <input type="text" name="email" placeholder="Adresse email" required>
       <input type="text" name="username" placeholder="Nom d'utilisateur" required>
@@ -40,6 +43,18 @@
       <button type="submit">Confirmer</button>
     </form>
   </main>
+
+  <h3>Database creation</h3>
+  <p>
+    To create the database itself, click
+    <a href="../php/create-db.php">here</a>.
+  </p>
+
+  <h3>Table creation</h3>
+  <p>
+    To create required tables, click
+    <a href="../php/create-tables.php">here</a>.
+  </p>
 
   <footer>
 

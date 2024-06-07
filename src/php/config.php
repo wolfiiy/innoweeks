@@ -1,14 +1,9 @@
 <?php
-//$dbPath = __DIR__ . "../db/database.db";
 
 $server = "TODO";
 $username = "TODO";
 $password = "TODO";
 $database = "database";
-
-// if (!file_exists(__DIR__ . "/db")) {
-//     mkdir(__DIR__ . "/db", 0755, true);
-// }
 
 try {
     // Connect to database using PDO instance
