@@ -62,20 +62,20 @@
       <h3>Database creation</h3>
       <p>
         To create the database itself, click
-        <a href="../php/create-db.php">here</a>.
+        <a href="../scripts/create-db.php">here</a>.
       </p>
     
       <h3>Table creation</h3>
       <p>
         To create required tables, click
-        <a href="../php/create-tables.php">here</a>.
+        <a href="../scripts/create-tables.php">here</a>.
       </p>
 
       <h3>Log out</h3>
       <?php include '../scripts/session-check.php'; ?>
       <p>
         To log out from <?php echo htmlspecialchars($_SESSION['username']); ?>, click
-        <a href="../php/signout.php">here</a>.
+        <a href="../scripts/signout.php">here</a>.
       </p>
     </div>
   </main>
