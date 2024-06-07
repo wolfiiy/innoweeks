@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
@@ -8,24 +8,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $passwordConfirm = $_POST['password-confirm'];
     $age = $_POST['age'];
 
-    // TODO error message / go back
-    if ($password != $passwordConfirm)
-        return;
+    error_log("Attempting to add new account...");
+
+    // TODO js
+    if ($password != $passwordConfirm) {
+        header("Location: ../html/create-account.html?error=password_mismatch");
+        exit();
+    }
     
     try {
-        $sql = "INSERT INTO t_Account (email, username, password, age) 
+        // TODO
+        $password = password_hash($password);
+        $sql = "INSERT INTO t_Account (accEmail, accUsername, accPassword, accAge) 
                 VALUES (?, ?, ?, ?)";
-        $stmt = $conn -> prepare($sql);
-        $stmt -> execute([$nom, $prenom, $email, $telephone, $message]);
-        echo "Formulaire ajouté avec succès";
-    } catch (PDOException $e) {
-        echo "Could not connect to database: " . $e->getMessage();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$email, $username, $password, $age]);
+        error_log("Account successfully created.");
+    } catch (Exception $e) {
+        throw new Exception("Account could not be created." . $e -> getMessage());
+        //header("Location: ../html/create-account.html?error=db_error");
+        exit();
     }
 
     $conn = null;
 }
 
-header("Location: ../html/index.html");
+header("Location: ../html/signin.html");
 exit();
 
 ?>

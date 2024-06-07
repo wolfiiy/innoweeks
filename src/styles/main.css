@@ -1,8 +1,63 @@
+:root {
+  --primary-darker: #2cbd3d;
+  --primary-dark: #38cd46;
+  --primary: #5dd665;
+  --primary-light: #7fde83;
+  --primary-lighter: #a6e7a8;
+
+  --secondary-darker: #4a88ba;
+  --secondary-dark: #529bcd;
+  --secondary: #59a9dc;
+  --secondary-light: #62b5e2;
+  --secondary-lighter: #72c2e7;
+
+  --gray-lighter: #d2d2d2;
+  --gray-light: #9d9d9d;
+  --gray: #707070;
+}
+
 * {
   font-family: 'Comic Sans MS';
 }
 
+/*
+ * Header
+ */
 header {
   display: flex;
   flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
 }
+
+#logo {
+  padding: 0 2ch;
+}
+
+header nav ul {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+header li {
+  padding: 0 2ch;
+  list-style: none;
+}
+
+/*
+ * Body
+ */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  max-width: 90ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*
+ * Footer
+ */
