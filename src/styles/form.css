@@ -1,7 +1,18 @@
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
 .form-container {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 50%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  padding: 2rem;
+  margin: 0 auto;
+  width: 45%;
+
   border: 1px solid var(--gray-lighter);
   border-radius: 10px;
 }
@@ -9,7 +20,15 @@
 form {
   display: flex;
   flex-flow: column wrap;
-  padding: 2rem;
+}
+
+.form-logo {
+  width: 5rem;
+  align-self: center;
+}
+
+.form-container h1 {
+  margin-bottom: 0;
 }
 
 form input {
@@ -38,4 +57,19 @@ form button {
 
 form button:hover {
   background-color: var(--primary-light);
+}
+
+.form-bottom-text {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.form-bottom-text a {
+  color: black;
+  font-size: small;
+  text-decoration: none;
+}
+
+.form-bottom-text a:hover {
+  text-decoration: underline;
 }
