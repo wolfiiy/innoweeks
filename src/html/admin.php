@@ -68,6 +68,16 @@
           <button type="submit">Create account</button>
         </form>
       </div>
+
+      <h3>Task / habit creation</h3>
+      <p>Fill in the following form to create a new task.</p>
+      <div class="form-container">
+        <form action="../scripts/create-task.php">
+          <input type="text" name="task-name" placeholder="tasName" required>
+          <input type="text" name="task-description" placeholder="tasDescription" required>
+          <button type="submit">Add task</button>
+        </form>
+      </div>
       
       <h3>Database creation</h3>
       <p>
