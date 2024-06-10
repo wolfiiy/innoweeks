@@ -5,6 +5,8 @@
     alert("Use the admin account!"); // TODO
     exit();
   }
+
+  include '../scripts/manage.php';
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +74,7 @@
       <h3>Task / habit creation</h3>
       <p>Fill in the following form to create a new task.</p>
       <div class="form-container">
-        <form action="../scripts/create-task.php" method="POST">
+        <form action="../scripts/manage.php?action=createTask" method="POST">
           <input type="text" name="task-name" placeholder="tasName" required>
           <input type="text" name="task-description" placeholder="tasDescription" required>
           <input type="number" name="task-score" placeholder="tasScore" required>
@@ -99,7 +101,7 @@
       </p>
 
       <h3>List users</h3>
-      <?php include '../scripts/read-users.php';?>
+      <?php //include '../scripts/read-users.php';?>
 
       <h3>List tasks</h3>
     </div>
