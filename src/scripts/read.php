@@ -62,6 +62,7 @@ function displayTasks($conn) {
                     <th>ID</th>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Complete</th>
                     <th>Actions</th>
                 </tr>";
     
@@ -71,6 +72,11 @@ function displayTasks($conn) {
                     <td>" . htmlspecialchars($row["idTask"]) . "</td>
                     <td>" . htmlspecialchars($row["tasName"]) . "</td>
                     <td>" . htmlspecialchars($row["tasDescription"]) . "</td>
+                    <td>
+                        <a href=\"../scripts/manage.php?action=completeTask&id=" 
+                        . htmlspecialchars($row["idTask"]) 
+                        . "\">Complete</a>
+                    </td>
                     <td>
                         <a href='update.php?id=" . htmlspecialchars($row["idTask"]) . "'>Edit</a> |
                         <a href='delete.php?id=" . htmlspecialchars($row["idTask"]) . "'>Delete</a>

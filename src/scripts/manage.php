@@ -10,6 +10,11 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == 'createAccount') {
         createAccount($conn);
     }
+
+    if ($_GET['action'] == 'completeTask') {
+        $id = $_GET['id'];
+        completeTask($conn, $id);
+    }
 }
 
 /**
@@ -96,6 +101,27 @@ function createTask($conn) {
     
         $conn -> close();
         header("Location: ../html/admin.php");
+    }
+}
+
+/**
+ * Marks a task as completed.
+ * @param mysqli $conn Connection to the database.
+ * @param int $id ID of the task.
+ */
+function completeTask($conn, $id) {
+    try {
+        $sql = "SELECT tasScore FROM t_Task WHERE idTask = ?";
+        $stmt = $conn -> prepare($sql);
+        $stmt -> bind_param("i", $id);
+        $stmt -> execute();
+        $stmt -> bind_result($tasScore);
+        $stmt -> fetch();
+        $stmt -> close();
+
+        echo $tasScore;
+    } catch (Exception $e) {
+        error_log("Could not set the task as complete. " . $e -> getMessage());
     }
 }
 ?>
