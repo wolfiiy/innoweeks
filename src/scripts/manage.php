@@ -86,13 +86,14 @@ function createTask($conn) {
         $name = $_POST['task-name'];
         $description = $_POST['task-description'];
         $score = $_POST['task-score'];
+        $state = 0;
     
         // Insert data into database
         try {
-            $sql = "INSERT INTO t_Task (tasName, tasDescription, tasScore)
-                    VALUES (?, ?, ?)";
+            $sql = "INSERT INTO t_Task (tasName, tasDescription, tasScore, tasState)
+                    VALUES (?, ?, ?, ?)";
             $stmt = $conn -> prepare($sql);
-            $stmt -> execute([$name, $description, $score]);
+            $stmt -> execute([$name, $description, $score, $state]);
             error_log("Task successfully created.");
         } catch (Exception $e) {
             error_log("Task could not be created." . $e -> getMessage());

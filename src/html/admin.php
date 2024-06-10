@@ -91,7 +91,7 @@
       <h3>Table creation</h3>
       <p>
         To create required tables, click
-        <a href="../scripts/setup.php">here</a>.
+        <a href="../scripts/setup.php?action=createTables">here</a>.
       </p>
 
       <h3>Log out</h3>
