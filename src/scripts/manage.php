@@ -111,6 +111,22 @@ function createTask($conn) {
  * @param int $id ID of the task.
  */
 function completeTask($conn, $id) {
+    $score = getTaskScore($conn, $id);
+
+    try {
+        // TODO
+
+        // Set task as completed
+        $sqlTask = "UPDATE t_Task SET tasState = 1 WHERE idTask = $id";
+        $sqlUser = "UPDATE t_Account SET accScore = accScore + $tasScore WHERE idAccount = $isAccount";
+
+
+    } catch (Exception $e) {
+        error_log("An error occurred. " . $e -> getMessage());
+    }
+
+
+
     echo getTaskScore($conn, $id);
 }
 
