@@ -97,6 +97,11 @@
         To log out from user "<?php echo htmlspecialchars($_SESSION['username']); ?>", click
         <a href="../scripts/signout.php">here</a>.
       </p>
+
+      <h3>List users</h3>
+      <?php include '../scripts/read-users.php';?>
+
+      <h3>List tasks</h3>
     </div>
   </main>
 
