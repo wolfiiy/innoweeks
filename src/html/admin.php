@@ -83,13 +83,13 @@
       <h3>Database creation</h3>
       <p>
         To create the database itself, click
-        <a href="../scripts/create-db.php">here</a>.
+        <a href="../scripts/setup.php?action=createDatabase">here</a>.
       </p>
     
       <h3>Table creation</h3>
       <p>
         To create required tables, click
-        <a href="../scripts/create-tables.php">here</a>.
+        <a href="../scripts/setup.php?action=createTables">here</a>.
       </p>
 
       <h3>Log out</h3>
