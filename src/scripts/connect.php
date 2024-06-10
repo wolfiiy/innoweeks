@@ -1,17 +1,9 @@
 <?php
-// Connection settings
-$databaseHost = "localhost";
-$databaseUsername = "root";
-$databasePassword = "";
-$databaseName = "httesting";
-   
-// Connection to the database
-$conn = new mysqli($databaseHost, 
-                   $databaseUsername, 
-                   $databasePassword, 
-                   $databaseName);
- 
-if ($conn -> connect_errno) {
-    die ("Connection failed: " . $conn -> connect_error);
+include 'settings.php';
+
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+
+if ($conn -> connect_error) {
+    die ("Connection failed. " . $conn -> connect_error);
 }
 ?>

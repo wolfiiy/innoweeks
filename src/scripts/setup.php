@@ -1,13 +1,4 @@
 <?php
-
-/**
- * ETML
- * Author: Sebastien TILLE
- * Date: June 10th, 2024
- * Descritpion: Sets up the database and users to be used with the habit 
- * tracker web app.
- */
-
 include 'settings.php';
 
 /**
