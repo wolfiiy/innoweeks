@@ -54,22 +54,23 @@ function createAccount($conn) {
 /**
  * Removes an account from the database.
  */
-/*function removeAccount(int $id) {
-    //$id = $_GET['id'];
-
+function removeAccount($id, $conn) {
     try {
         $sql = "DELETE FROM t_Account WHERE id=?";
         $stmt = $conn -> prepare($sql);
         $stmt -> execute([$id]);
 
         error_log("Account successfully removed.");
+        $conn -> close();
+        header("Location: ../html/admin.php");
+        exit();
     } catch (Exception $e) {
         error_log("Could not remove account. " . $e -> getMessage());
     }
 
     $conn -> close();
     header("Location: ../html/admin.php");
-}*/
+}
 
 /**
  * Adds a new task to the database.

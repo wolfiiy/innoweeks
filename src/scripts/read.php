@@ -25,8 +25,8 @@ function displayAccounts($conn) {
                     <td>" . htmlspecialchars($row["accUsername"]) . "</td>
                     <td>" . htmlspecialchars($row["accEmail"]) . "</td>
                     <td>
-                        <a href='update.php?id=" . htmlspecialchars($row["idAccount"]) . "'>Edit</a> |
-                        <a href='delete.php?id=" . htmlspecialchars($row["idAccount"]) . "'>Delete</a>
+                        <a href='remoasfdsdfve-account.php?id=" . htmlspecialchars($row["idAccount"]) . "'>Edit</a> |
+                        <a href='../scripts/remove-account.php?id=" . htmlspecialchars($row["idAccount"]) . "'>Delete</a>
                     </td>
                 </tr>";
         }
