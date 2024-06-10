@@ -61,7 +61,7 @@
       <h3>Account creation</h3>
       <p>Fill in the following form to create a new account.</p>
       <div class="form-container">
-        <form class="form-account-creation" action="../scripts/create-account.php" method="POST">
+        <form class="form-account-creation" action="../scripts/manage.php?action=createAccount" method="POST">
           <input type="text" name="email" placeholder="Adresse email" required>
           <input type="text" name="username" placeholder="Nom d'utilisateur" required>
           <input type="password" name="password" placeholder="Mot de passe" required>
