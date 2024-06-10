@@ -49,4 +49,51 @@ function getAccounts($conn) {
     return $result;
 }
 
+/**
+ * Displays a table that contains all tasks found in the database.
+ */
+function displayTasks($conn) {
+    try {
+        $stmt = getTasks($conn);
+    
+        // Create HTML table
+        echo "<table border='1'>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>";
+    
+        // Loop over users
+        while ($row = $stmt -> fetch_assoc()) {
+            echo "<tr>
+                    <td>" . htmlspecialchars($row["idTask"]) . "</td>
+                    <td>" . htmlspecialchars($row["tasName"]) . "</td>
+                    <td>" . htmlspecialchars($row["tasDescription"]) . "</td>
+                    <td>
+                        <a href='update.php?id=" . htmlspecialchars($row["idTask"]) . "'>Edit</a> |
+                        <a href='delete.php?id=" . htmlspecialchars($row["idTask"]) . "'>Delete</a>
+                    </td>
+                </tr>";
+        }
+    
+        // Close HTML table
+        echo "</table>";
+    } catch (Exception $e) {
+        error_log("Error." . $e -> getMessage());
+    }
+}
+
+/**
+ * Gets the ID, name and description of every task found in the database.
+ * @param mysqli $conn Connection to the database.
+ * @return query All tasks found in the database.
+ */
+function getTasks($conn) {
+    $sql = "SELECT idTask, tasName, tasDescription FROM t_Task";
+    $result = $conn -> query($sql);
+    return $result;
+}
+
 ?>

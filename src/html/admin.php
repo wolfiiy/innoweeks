@@ -1,10 +1,12 @@
 <?php
-  include '../scripts/session-check.php';
+  require '../scripts/session-check.php';
   if ($_SESSION['username'] != "admin") {
     header("Location: ../html/index.php");
     alert("Use the admin account!"); // TODO
     exit();
   }
+
+  include "../scripts/read.php";
 ?>
 
 <!DOCTYPE html>
@@ -99,10 +101,10 @@
       </p>
 
       <h3>List users</h3>
-      <?php include "../scripts/read.php"; displayAccounts($conn);?>
+      <?php displayAccounts($conn);?>
 
       <h3>List tasks</h3>
-      
+      <?php displayTasks($conn);?>
     </div>
   </main>
 
