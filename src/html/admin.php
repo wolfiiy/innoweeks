@@ -72,9 +72,10 @@
       <h3>Task / habit creation</h3>
       <p>Fill in the following form to create a new task.</p>
       <div class="form-container">
-        <form action="../scripts/create-task.php">
+        <form action="../scripts/create-task.php" method="POST">
           <input type="text" name="task-name" placeholder="tasName" required>
           <input type="text" name="task-description" placeholder="tasDescription" required>
+          <input type="number" name="task-score" placeholder="tasScore" required>
           <button type="submit">Add task</button>
         </form>
       </div>
