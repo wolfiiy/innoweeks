@@ -110,6 +110,18 @@ function createTask($conn) {
  * @param int $id ID of the task.
  */
 function completeTask($conn, $id) {
+    echo getTaskScore($conn, $id);
+}
+
+/**
+ * Gets the score value of a task.
+ * @param mysqli $conn Connection to the database.
+ * @param int $id ID of the task.
+ * @return The score value of the task or -1 if the task could not be found.
+ */
+function getTaskScore($conn, $id) {
+    $tasScore = -1;
+
     try {
         $sql = "SELECT tasScore FROM t_Task WHERE idTask = ?";
         $stmt = $conn -> prepare($sql);
@@ -118,10 +130,10 @@ function completeTask($conn, $id) {
         $stmt -> bind_result($tasScore);
         $stmt -> fetch();
         $stmt -> close();
-
-        echo $tasScore;
     } catch (Exception $e) {
-        error_log("Could not set the task as complete. " . $e -> getMessage());
+        error_log("An error occured. " . $e -> getMessage());
     }
+
+    return $tasScore;
 }
 ?>
