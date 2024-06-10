@@ -5,8 +5,6 @@
     alert("Use the admin account!"); // TODO
     exit();
   }
-
-  include '../scripts/manage.php';
 ?>
 
 <!DOCTYPE html>
@@ -91,7 +89,7 @@
       <h3>Table creation</h3>
       <p>
         To create required tables, click
-        <a href="../scripts/setup.php?action=createTables">here</a>.
+        <a href="../scripts/setup.php">here</a>.
       </p>
 
       <h3>Log out</h3>
@@ -101,9 +99,10 @@
       </p>
 
       <h3>List users</h3>
-      <?php //include '../scripts/read-users.php';?>
+      <?php include "../scripts/read.php"; displayAccounts($conn);?>
 
       <h3>List tasks</h3>
+      
     </div>
   </main>
 
