@@ -3,7 +3,7 @@
 $databaseHost = "localhost";
 $databaseUsername = "root";
 $databasePassword = "";
-$databaseName = "aaa";
+$databaseName = "httesting";
    
 // Connection to the database
 $conn = new mysqli($databaseHost, 
