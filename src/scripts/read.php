@@ -7,8 +7,7 @@ include 'connect.php';
  */
 function fillLeaderboard($conn) {
     try {
-        // TODO getAccountsOrderByScore
-        $accounts = getAccounts($conn);
+        $accounts = getAccountsOrderedByScore($conn);
         $counter = 0;
 
         while ($row = $accounts -> fetch(PDO::FETCH_ASSOC)) {
@@ -74,10 +73,21 @@ function displayAccounts($conn) {
 /**
  * Gets the ID, username and email of all users of the habit tracker web app.
  * @param PDO $conn Connection to the database. 
- * @return query Details of all accounts.
  */
 function getAccounts($conn) {
     $sql = "SELECT idAccount, accUsername, accEmail, accScore FROM t_Account";
+    $result = $conn -> query($sql);
+    return $result;
+}
+
+/**
+ * Retrieves user accounts, order by score.
+ * @param PDO $conn Connection to the database.
+ */
+function getAccountsOrderedByScore($conn) {
+    $sql = "SELECT idAccount, accUsername, accEmail, accScore 
+            FROM t_Account
+            ORDER BY accScore";
     $result = $conn -> query($sql);
     return $result;
 }
