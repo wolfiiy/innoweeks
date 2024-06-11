@@ -2,8 +2,38 @@
 include 'connect.php';
 
 /**
+ * Fills the leaderboard with usernames and scores.
+ * @param PDO $conn Connection to the database.
+ */
+function fillLeaderboard($conn) {
+    try {
+        // TODO getAccountsOrderByScore
+        $accounts = getAccounts($conn);
+        $counter = 0;
+
+        while ($row = $accounts -> fetch(PDO::FETCH_ASSOC)) {
+            if ($counter < 6) {
+                $counter++;
+            }
+
+            $score = is_null($row["accScore"]) ? 0 : htmlspecialchars($row["accScore"]);
+            echo 
+               "<div class=\"leaderboard-item\">
+                    <div class=\"rank rank-$counter\">$counter</div>
+                    <div class=\"leaderboard-username\">" . htmlspecialchars($row["accUsername"]) . "</div>
+                    <div class=\"points\"> " . $score . " Pts</div>
+                </div>";
+        }
+
+    } catch (PDOException $e) {
+        error_log("An error occurred. " . $e -> getMessage());
+        exit();
+    }
+}
+
+/**
  * Displays a table that contains all users found in the database.
- * @param PDo $conn Connection to the database.
+ * @param PDO $conn Connection to the database.
  */
 function displayAccounts($conn) {
     try {

@@ -1,5 +1,6 @@
 <?php
   require '../scripts/session-check.php';
+  require '../scripts/read.php';
 ?>
 
 <!DOCTYPE html>
@@ -52,34 +53,9 @@
   <main>
     <div class="content">
       <h1>Classement</h1>
-      
       <div class="leaderboard">
-        <h2>Placeholder</h2>
-        <div class="leaderboard-item">
-          <div class="rank rank-1">1</div>
-          <div class="leaderboard-username">Moi</div>
-          <div class="points">50 Pts</div>
-        </div>
-        <div class="leaderboard-item">
-          <div class="rank rank-2">2</div>
-          <div class="leaderboard-username">Annabelle</div>
-          <div class="points">40 Pts</div>
-        </div>
-        <div class="leaderboard-item">
-          <div class="rank rank-3">3</div>
-          <div class="leaderboard-username">Nolan</div>
-          <div class="points">35 Pts</div>
-        </div>
-        <div class="leaderboard-item">
-          <div class="rank rank-4">4</div>
-          <div class="leaderboard-username">Sophie</div>
-          <div class="points">15 Pts</div>
-        </div>
-        <div class="leaderboard-item">
-          <div class="rank rank-5">5</div>
-          <div class="leaderboard-username">Laurent</div>
-          <div class="points">5 Pts</div>
-        </div>
+        <h2>Actual leaderboard</h2>
+        <?php fillLeaderboard($conn);?>
       </div>
     </div>
   </main>
