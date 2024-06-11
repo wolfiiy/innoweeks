@@ -34,7 +34,7 @@
           if(!isset($_SESSION['username']))
           { ?>
             <li>
-              <a href="signin.html" id="login-button">Connexion</a>
+              <a href="signin.html" class="button">Connexion</a>
             </li>
           <?php }
         ?>
@@ -42,7 +42,7 @@
           if(isset($_SESSION['username']))
           { ?>
             <li>
-              <a href="../scripts/signout.php" id="login-button">Déconnexion</a>
+              <a href="../scripts/signout.php" class="button">Déconnexion</a>
             </li>
           <?php }
         ?>
@@ -55,13 +55,15 @@
       <h1>Les tâches du jour</h1>
       <div class="task-container">
         <div class="task-item">
-          <p class="task-name">
-            Task name
-          </p>
-
-          <p class="task-description">
-            aaa
-          </p>
+          <div class="task-texts">
+            <p class="task-name">
+              Task name | x pts
+            </p>
+  
+            <p class="task-description">
+              aaa
+            </p>
+          </div>
 
           <a href="" class="button">
             Completée!

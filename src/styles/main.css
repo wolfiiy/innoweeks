@@ -1,15 +1,44 @@
-:root {
-  --primary-darker: #2cbd3d;
-  --primary-dark: #38cd46;
-  --primary: #5dd665;
-  --primary-light: #7fde83;
-  --primary-lighter: #a6e7a8;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-  --secondary-darker: #4a88ba;
-  --secondary-dark: #529bcd;
-  --secondary: #59a9dc;
-  --secondary-light: #62b5e2;
-  --secondary-lighter: #72c2e7;
+:root {
+  --background-accent-light: #eef4d2;
+  --background-accent-dark: #e0e6c4;
+
+  --background-neutral-light: #fcf9f2;
+  --background-neutral-dark: #f1f1e9;
+
+  --background-dark-accent-light: #30312c;
+  --background-dark-accent-dark: #171c16;
+
+  --accent-light: #f4fad6;
+  --accent: #daeb7b;
+  --accent-dark: #3f4b00;
+
+  --accent-secondary: #3f4b00;
+  --accent-secondary-dark: #3a655b; 
+
+  --foreground-light: #43453a;
+  --foreground: black; 
+
+  --primary-darker: #688934;
+  --primary-dark: #7c9c3c;
+  --primary: #91b046;
+  --primary-light: #a0c04e;
+  --primary-lighter: #aec968;
+  --primary-background: #f4f7e9;
+
+  --secondary-darker: #4a88ba; 
+  --secondary-dark: #817a6d;
+  --secondary: #ac9c74;
+  --secondary-light: #c3b279;
+  --secondary-lighter: #d9c781;
+  --secondary-background: #fdfaee;
+
+  --ternary-darker: #5d8fb2;
+  --ternary-dark: #6d9dbc;
+  --ternary: #81aec7;
+  --ternary-light: #9ec5d8;
+  --ternary-lighter: #c1dbe7;
 
   --gray-lighter: #d2d2d2;
   --gray-light: #9d9d9d;
@@ -25,12 +54,32 @@
 }
 
 * {
-  font-family: 'Comic Sans MS';
+  font-family: 'Roboto', sans-serif;
   text-decoration: none;
 }
 
 a {
   color: var(--primary-darker);
+}
+
+/*
+ * Elements
+ */
+.button {
+  padding: 0.7rem 0.8rem;
+  border-radius: 19px;
+
+  background: var(--accent);
+  color: var(--foreground-light);
+
+  transition: all 0.1s ease-out;
+}
+
+.button:hover {
+  background: var(--accent-dark);
+  color: var(--background-accent-dark);
+
+  transition: all 0.1s ease-out;
 }
 
 /*
@@ -41,11 +90,11 @@ header {
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  background: var(--background-dark-accent-light);
 }
 
 header a {
-  color: black;
+  color: var(--background-accent-light);
 }
 
 header a:hover {
@@ -83,7 +132,7 @@ header li {
 body {
   margin: 0;
   padding: 0;
-  background: var(--background);
+  background: var(--background-neutral-light);
 }
 
 .content {

@@ -4,9 +4,8 @@
   align-items: center;
   justify-content: space-between;
 
-  
-
-  background: red;
+  padding: 0.5rem 1rem;
+  background: white;
 }
 
 .task-item p {

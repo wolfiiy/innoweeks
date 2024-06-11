@@ -16,7 +16,7 @@ h2 {
   width: 80%;
   max-width: 65ch;
 
-  background-color: var(--primary-darker);
+  background-color: var(--secondary-lighter);
   border-radius: 10px;
 }
 
