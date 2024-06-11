@@ -9,16 +9,18 @@ function fillLeaderboard($conn) {
     try {
         $accounts = getAccountsOrderedByScore($conn);
         $counter = 0;
+        $styleCounter = 0;
 
         while ($row = $accounts -> fetch(PDO::FETCH_ASSOC)) {
-            if ($counter < 6) {
-                $counter++;
+            if ($counter < 5) {
+                $styleCounter++;
             }
 
+            $counter++;
             $score = is_null($row["accScore"]) ? 0 : htmlspecialchars($row["accScore"]);
             echo 
                "<div class=\"leaderboard-item\">
-                    <div class=\"rank rank-$counter\">$counter</div>
+                    <div class=\"rank rank-$styleCounter\">$counter</div>
                     <div class=\"leaderboard-username\">" . htmlspecialchars($row["accUsername"]) . "</div>
                     <div class=\"points\"> " . $score . " Pts</div>
                 </div>";

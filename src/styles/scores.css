@@ -17,7 +17,7 @@ h2 {
   max-width: 65ch;
 
   background-color: var(--background-accent-light);
-  border-radius: 10px;
+  border-radius: 19px;
 }
 
 .leaderboard-item {
@@ -25,11 +25,11 @@ h2 {
   justify-content: space-between;
   align-items: center;
   
-  padding: 0.75rem;
+  padding: 0.85rem;
   margin-bottom: 10px;
 
   background-color: var(--background-accent-dark);
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 .rank {
