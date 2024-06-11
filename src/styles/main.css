@@ -27,24 +27,15 @@
   --primary-lighter: #aec968;
   --primary-background: #f4f7e9;
 
-  --secondary-darker: #4a88ba; 
   --secondary-dark: #817a6d;
   --secondary: #ac9c74;
   --secondary-light: #c3b279;
   --secondary-lighter: #d9c781;
   --secondary-background: #fdfaee;
 
-  --ternary-darker: #5d8fb2;
-  --ternary-dark: #6d9dbc;
-  --ternary: #81aec7;
-  --ternary-light: #9ec5d8;
-  --ternary-lighter: #c1dbe7;
-
   --gray-lighter: #d2d2d2;
   --gray-light: #9d9d9d;
   --gray: #707070;
-
-  --background: #f0f0f0;
 
   --rank-1: gold;
   --rank-2: silver;

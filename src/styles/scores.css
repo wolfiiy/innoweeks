@@ -1,6 +1,6 @@
 h2 {
   margin-top: 0;
-  color: white;
+  color: var(--background-dark-accent-light);
 }
 
 .content {
@@ -16,7 +16,7 @@ h2 {
   width: 80%;
   max-width: 65ch;
 
-  background-color: var(--secondary-lighter);
+  background-color: var(--background-accent-light);
   border-radius: 10px;
 }
 
@@ -28,7 +28,7 @@ h2 {
   padding: 0.75rem;
   margin-bottom: 10px;
 
-  background-color: white;
+  background-color: var(--background-accent-dark);
   border-radius: 5px;
 }
 

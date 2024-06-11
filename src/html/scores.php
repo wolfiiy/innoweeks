@@ -34,7 +34,7 @@
           if(!isset($_SESSION['username']))
           { ?>
             <li>
-              <a href="signin.html" id="login-button">Connexion</a>
+              <a href="signin.html" class="button">Connexion</a>
             </li>
           <?php }
         ?>
@@ -42,7 +42,7 @@
           if(isset($_SESSION['username']))
           { ?>
             <li>
-              <a href="../scripts/signout.php" id="login-button">Déconnexion</a>
+              <a href="../scripts/signout.php" class="button">Déconnexion</a>
             </li>
           <?php }
         ?>
@@ -54,7 +54,7 @@
     <div class="content">
       <h1>Classement</h1>
       <div class="leaderboard">
-        <h2>Actual leaderboard</h2>
+        <h2>Les meilleurs participants</h2>
         <?php fillLeaderboard($conn);?>
       </div>
     </div>
