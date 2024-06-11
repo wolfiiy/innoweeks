@@ -24,6 +24,9 @@
           <a href="admin.php">Admin</a>
         </li>
         <li>
+          <a href="tasks.php">Tâches</a>
+        </li>
+        <li>
           <a href="scores.php">Classement</a>
         </li>        
         <?php

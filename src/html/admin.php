@@ -29,6 +29,9 @@
           <a href="admin.php">Admin</a>
         </li>
         <li>
+          <a href="tasks.php">Tâches</a>
+        </li>
+        <li>
           <a href="TODO">Classement</a>
         </li>        
 
@@ -36,7 +39,7 @@
           if(!isset($_SESSION['username']))
           { ?>
             <li>
-              <a href="signin.html">Connexion</a>
+              <a href="signin.html" id="login-button">Connexion</a>
             </li>
           <?php }
         ?>
@@ -44,7 +47,7 @@
           if(isset($_SESSION['username']))
           { ?>
             <li>
-              <a href="../scripts/signout.php">Déconnexion</a>
+              <a href="../scripts/signout.php" id="login-button">Déconnexion</a>
             </li>
           <?php }
         ?>
