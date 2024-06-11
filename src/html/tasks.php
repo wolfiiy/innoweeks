@@ -54,6 +54,42 @@
     <div class="content">
       <h1>Les tâches du jour</h1>
       <div class="task-container">
+        <?php fillTaskContainer($conn);?>
+      </div>
+
+      <div class="task-container">
+        <div class="task-item">
+          <div class="task-texts">
+            <p class="task-name">
+              Task name | x pts
+            </p>
+  
+            <p class="task-description">
+              aaa
+            </p>
+          </div>
+
+          <a href="" class="button">
+            Completée!
+          </a>
+        </div>
+
+        <div class="task-item">
+          <div class="task-texts">
+            <p class="task-name">
+              Task name | x pts
+            </p>
+  
+            <p class="task-description">
+              aaa
+            </p>
+          </div>
+
+          <a href="" class="button">
+            Completée!
+          </a>
+        </div>
+
         <div class="task-item">
           <div class="task-texts">
             <p class="task-name">

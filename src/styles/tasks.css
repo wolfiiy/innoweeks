@@ -1,3 +1,13 @@
+.task-container {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+
+  padding: 1.5rem;
+  background-color: var(--background-accent-light);
+  border-radius: 19px;
+}
+
 .task-item {
   display: flex;
   flex-flow: row wrap;
@@ -5,7 +15,9 @@
   justify-content: space-between;
 
   padding: 0.5rem 1rem;
-  background: white;
+
+  background-color: var(--background-accent-dark);
+  border-radius: 15px;
 }
 
 .task-item p {
@@ -14,4 +26,10 @@
 
 .task-name {
   width: 100%;
+  font-weight: 500;
+  color: var(--background-dark-accent-dark);
+}
+
+.task-description {
+  color: var(--background-dark-accent-light);
 }

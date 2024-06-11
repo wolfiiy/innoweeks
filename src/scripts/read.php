@@ -95,6 +95,38 @@ function getAccountsOrderedByScore($conn) {
 }
 
 /**
+ * Fills the tasks container.
+ * @param PDO $conn Connection to the database.
+ */
+function fillTaskContainer($conn) {
+    try {
+        $tasks = getTasks($conn);
+
+        while ($row = $tasks -> fetch(PDO::FETCH_ASSOC)) {
+            echo 
+               "<div class=\"task-item\">
+                    <div class=\"task-texts\">
+                        <p class=\"task-name\">
+                            " . htmlspecialchars($row["tasName"]) . " | " . htmlspecialchars($row["tasScore"]) . "
+                        </p>
+
+                        <p class=\"task-description\">
+                            
+                        </p>
+                    </div>
+
+                    <div class=\"rank rank-$styleCounter\">$counter</div>
+                    <div class=\"leaderboard-username\">" . htmlspecialchars($row["accUsername"]) . "</div>
+                </div>";
+        }
+
+    } catch (PDOException $e) {
+        error_log("An error occurred. " . $e -> getMessage());
+        exit();
+    }
+}
+
+/**
  * Displays a table that contains all tasks found in the database.
  * @param PDO $conn Connection to the database.
  */
