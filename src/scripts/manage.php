@@ -118,6 +118,12 @@ function completeTask($conn, $id) {
     $tasScore = getTaskScore($conn, $id);
 
     try {
+        if (!isTaskAvailable($conn, $id)) {
+            error_log("Task is already completed.");
+            header("Location: ../html/admin.php?error=task_already_completed");
+            return;
+        }
+
         // Because of this, usernames are required to be unique
         // Session already started in manage.php
         $accUsername = $_SESSION['username'];
@@ -224,6 +230,29 @@ function getScoreByAccountId($conn, $idAccount) {
 
         if ($result) {
             return $result['accScore'];
+        } else {
+            return false;
+        }
+    } catch (PDOException $e) {
+        error_log("An error occurred. " . $e -> getMessage());
+        return false;
+    }
+}
+
+/**
+ * Returns the state of a task.
+ * @param PDO $conn Connection to the database.
+ * @param int $idTask ID of the task.
+ */
+function isTaskAvailable($conn, $idTask) {
+    try {
+        $sql = "SELECT tasState FROM t_Task WHERE idTask = ?";
+        $stmt = $conn -> prepare($sql);
+        $stmt -> execute([$idTask]);
+        $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return $result['tasState'] > 0 ? false : true;
         } else {
             return false;
         }
