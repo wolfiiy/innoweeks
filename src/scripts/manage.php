@@ -19,6 +19,7 @@ if (isset($_GET['action'])) {
 
 /**
  * Adds a new account to the database.
+ * @param PDO $conn Connection to the database.
  */
 function createAccount($conn) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -32,7 +33,6 @@ function createAccount($conn) {
         // Stop if passwords do not match
         if ($password != $passwordConfirm) {
             header("Location: ../html/create-account.html?error=password_mismatch");
-            $conn -> close();
             exit();
         }
         
@@ -43,42 +43,44 @@ function createAccount($conn) {
             // Send to database
             $sql = "INSERT INTO t_Account (accEmail, accUsername, accPassword, accAge) 
                     VALUES (?, ?, ?, ?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->execute([$email, $username, $password, $age]);
+            $stmt = $conn -> prepare($sql);
+            $stmt -> execute([$email, $username, $password, $age]);
             error_log("Account successfully created.");
         } catch (Exception $e) {
             error_log("Account could not be created." . $e -> getMessage());
             header("Location: ../html/create-account.html?error=db_error");
+            exit();
         }
     }
     
-    $conn -> close();
     header("Location: ../html/signin.html");
+    exit();
 }
 
 /**
  * Removes an account from the database.
+ * @param int $id ID of the account to remove.
+ * @param PDO $conn Connection to the database.
  */
 function removeAccount($id, $conn) {
     try {
-        $sql = "DELETE FROM t_Account WHERE id=?";
+        $sql = "DELETE FROM t_Account WHERE idAccount = ?";
         $stmt = $conn -> prepare($sql);
         $stmt -> execute([$id]);
 
         error_log("Account successfully removed.");
-        $conn -> close();
         header("Location: ../html/admin.php");
         exit();
-    } catch (Exception $e) {
+    } catch (PDOException $e) {
         error_log("Could not remove account. " . $e -> getMessage());
     }
 
-    $conn -> close();
     header("Location: ../html/admin.php");
 }
 
 /**
  * Adds a new task to the database.
+ * @param PDO $conn Connection to the database.
  */
 function createTask($conn) {
     // Get input data iff POST request
@@ -95,13 +97,14 @@ function createTask($conn) {
             $stmt = $conn -> prepare($sql);
             $stmt -> execute([$name, $description, $score, $state]);
             error_log("Task successfully created.");
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
             error_log("Task could not be created." . $e -> getMessage());
             header("Location: ../html/admin.php?error=db_error");
+            exit();
         }
     
-        $conn -> close();
         header("Location: ../html/admin.php");
+        exit();
     }
 }
 
@@ -142,12 +145,15 @@ function getTaskScore($conn, $id) {
     try {
         $sql = "SELECT tasScore FROM t_Task WHERE idTask = ?";
         $stmt = $conn -> prepare($sql);
-        $stmt -> bind_param("i", $id);
-        $stmt -> execute();
-        $stmt -> bind_result($tasScore);
-        $stmt -> fetch();
-        $stmt -> close();
-    } catch (Exception $e) {
+        $stmt -> execute([$id]);
+        $stmt -> setFetchMode(PDO::FETCH_ASSOC);
+
+        // Fetch result
+        $result = $stmt -> fetch();
+        if ($result) {
+            $tasScore = $result['tasScore'];
+        }
+    } catch (PDOException $e) {
         error_log("An error occured. " . $e -> getMessage());
     }
 

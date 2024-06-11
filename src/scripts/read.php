@@ -3,7 +3,7 @@ include 'connect.php';
 
 /**
  * Displays a table that contains all users found in the database.
- * @param mysqli $conn Connection to the database.
+ * @param PDo $conn Connection to the database.
  */
 function displayAccounts($conn) {
     try {
@@ -19,7 +19,7 @@ function displayAccounts($conn) {
                 </tr>";
     
         // Loop over users
-        while ($row = $stmt -> fetch_assoc()) {
+        while ($row = $stmt -> fetch(PDO::FETCH_ASSOC)) {
             echo "<tr>
                     <td>" . htmlspecialchars($row["idAccount"]) . "</td>
                     <td>" . htmlspecialchars($row["accUsername"]) . "</td>
@@ -33,14 +33,14 @@ function displayAccounts($conn) {
     
         // Close HTML table
         echo "</table>";
-    } catch (Exception $e) {
+    } catch (PDOException $e) {
         error_log("Error." . $e -> getMessage());
     }
 }
 
 /**
  * Gets the ID, username and email of all users of the habit tracker web app.
- * @param mysqli $conn Connection to the database. 
+ * @param PDO $conn Connection to the database. 
  * @return query Details of all accounts.
  */
 function getAccounts($conn) {
@@ -51,6 +51,7 @@ function getAccounts($conn) {
 
 /**
  * Displays a table that contains all tasks found in the database.
+ * @param PDO $conn Connection to the database.
  */
 function displayTasks($conn) {
     try {
@@ -67,7 +68,7 @@ function displayTasks($conn) {
                 </tr>";
     
         // Loop over users
-        while ($row = $stmt -> fetch_assoc()) {
+        while ($row = $stmt -> fetch(PDO::FETCH_ASSOC)) {
             echo "<tr>
                     <td>" . htmlspecialchars($row["idTask"]) . "</td>
                     <td>" . htmlspecialchars($row["tasName"]) . "</td>
@@ -86,14 +87,14 @@ function displayTasks($conn) {
     
         // Close HTML table
         echo "</table>";
-    } catch (Exception $e) {
+    } catch (PDOException $e) {
         error_log("Error." . $e -> getMessage());
     }
 }
 
 /**
  * Gets the ID, name and description of every task found in the database.
- * @param mysqli $conn Connection to the database.
+ * @param PDO $conn Connection to the database.
  * @return query All tasks found in the database.
  */
 function getTasks($conn) {
