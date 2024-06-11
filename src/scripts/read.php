@@ -87,7 +87,7 @@ function getAccounts($conn) {
 function getAccountsOrderedByScore($conn) {
     $sql = "SELECT idAccount, accUsername, accEmail, accScore 
             FROM t_Account
-            ORDER BY accScore";
+            ORDER BY accScore DESC";
     $result = $conn -> query($sql);
     return $result;
 }
