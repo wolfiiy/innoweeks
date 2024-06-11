@@ -1,5 +1,6 @@
 <?php
-  session_start();
+  require '../scripts/session-check.php';
+  require '../scripts/read.php';
 ?>
 
 <!DOCTYPE html>
@@ -8,8 +9,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../styles/main.css">
-  <link rel="stylesheet" href="../styles/index.css">
-  <title>Accueil</title>
+  <link rel="stylesheet" href="../styles/tasks.css">
+  <title>Tâches</title>
 </head>
 <body>
   <header>
@@ -51,22 +52,22 @@
 
   <main>
     <div class="content">
-      <h1>Bienvenue sur GreenHabits</h1>
+      <h1>Les tâches du jour</h1>
+      <div class="task-container">
+        <div class="task-item">
+          <p class="task-name">
+            Task name
+          </p>
 
-      <div id="home-mascots-container">
-        <img src="../../assets/eco-lojie.png" 
-             alt="Eco et Lojie, les mascots de GreenHabits"
-             id="home-mascots">
-  
-        <p id="home-mascots-text">
-          Salut! Nous c'est Eco et Lojie! Es-tu prêt à améliorer tes habitudes écologiques avec nous?
-        </p>
+          <p class="task-description">
+            aaa
+          </p>
+
+          <a href="" class="button">
+            Completée!
+          </a>
+        </div>
       </div>
-
-      <h2>Présentation</h2>
-      <p>
-        bla bla bla parler du projet bla bla bla
-      </p>
     </div>
   </main>
 
