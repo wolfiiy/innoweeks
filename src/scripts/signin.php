@@ -1,5 +1,5 @@
 <?php
-include 'connect.php';
+require 'connect.php';
 
 session_start();
 
@@ -15,11 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $sql = "SELECT accPassword FROM t_Account WHERE accUsername = ?";
     $stmt = $conn -> prepare($sql);
-    $stmt -> bind_param("s", $username);
-    $stmt -> execute();
-    $stmt -> bind_result($hash);
-    $stmt -> fetch();
-    $stmt -> close();
+    $stmt -> execute([$username]);
+    $hash = $stmt -> fetchColumn();
 
     if ($hash && password_verify($password, $hash)) {
         $_SESSION['username'] = $username;
@@ -29,7 +26,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         error_log("Username or password is invalid.");
     }
-
-    $conn -> close();
 }
 ?>

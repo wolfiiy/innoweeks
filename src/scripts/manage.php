@@ -1,5 +1,6 @@
 <?php
-include 'connect.php';
+require 'connect.php';
+require 'session-check.php';
 
 // Handle requests
 if (isset($_GET['action'])) {
@@ -110,34 +111,55 @@ function createTask($conn) {
 
 /**
  * Marks a task as completed.
- * @param mysqli $conn Connection to the database.
+ * @param PDO $conn Connection to the database.
  * @param int $id ID of the task.
  */
 function completeTask($conn, $id) {
-    $score = getTaskScore($conn, $id);
+    $tasScore = getTaskScore($conn, $id);
 
     try {
-        // TODO
+        // Because of this, usernames are required to be unique
+        // Session already started in manage.php
+        $accUsername = $_SESSION['username'];
+        $idAccount = getAccountByUsername($conn, $accUsername);
+        
+        if ($idAccount === false) {
+            error_log("The username \"$accUsername\" does not exists.");
+            return;
+        }
 
-        // Set task as completed
-        $sqlTask = "UPDATE t_Task SET tasState = 1 WHERE idTask = $id";
-        $sqlUser = "UPDATE t_Account SET accScore = accScore + $tasScore WHERE idAccount = $isAccount";
+        // Mark task as completed
+        $sqlTask = "UPDATE t_Task 
+                    SET tasState = 1 
+                    WHERE idTask = ?";
 
+        $stmt = $conn -> prepare($sqlTask);
+        $stmt -> execute([$id]);
 
-    } catch (Exception $e) {
+        // Add score to user account
+        $sqlUser = "UPDATE t_Account 
+                    SET accScore = ? 
+                    WHERE idAccount = ?";
+
+        $score = getScoreByAccountId($conn, $idAccount);
+        $score += $tasScore;
+        $stmt = $conn -> prepare($sqlUser);
+        $stmt -> execute([$score, $idAccount]);
+
+        error_log("Task $id completed by $accUsername.");
+        header("Location: ../html/admin.php");
+    } catch (PDOException $e) {
         error_log("An error occurred. " . $e -> getMessage());
+        header("Location: ../html/admin.php?error=task_error");
+        exit();
     }
-
-
-
-    echo getTaskScore($conn, $id);
 }
 
 /**
  * Gets the score value of a task.
- * @param mysqli $conn Connection to the database.
+ * @param PDO $conn Connection to the database.
  * @param int $id ID of the task.
- * @return The score value of the task or -1 if the task could not be found.
+ * @return int The score value of the task or -1 if the it could not be found.
  */
 function getTaskScore($conn, $id) {
     $tasScore = -1;
@@ -158,5 +180,56 @@ function getTaskScore($conn, $id) {
     }
 
     return $tasScore;
+}
+
+/**
+ * Gets the account ID from the username.
+ * @param PDO $conn Connection to the database.
+ * @param string $username Username for which to fetch the account ID.
+ * @return int|false The account ID if found, false otherwise.
+ */
+function getAccountByUsername($conn, $username) {
+    try {
+        $sql = "SELECT idAccount FROM t_Account WHERE accUsername = ?";
+        $stmt = $conn -> prepare($sql);
+        $stmt -> execute([$username]);
+
+        $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return $result['idAccount'];
+        } else {
+            return false;
+        }
+
+    } catch (PDOException $e) {
+        error_log("An error occurred. " . $e -> getMessage());
+        return false;
+    }
+}
+
+/**
+ * Gets the current score of a given user.
+ * @param PDO $conn Connection to the database.
+ * @param int $idAccount ID of the account.
+ * @return int|false The score if found, false otherwise.
+ */
+function getScoreByAccountId($conn, $idAccount) {
+    try {
+        $sql = "SELECT accScore FROM t_Account WHERE idAccount = ?";
+        $stmt = $conn -> prepare($sql);
+        $stmt -> execute([$idAccount]);
+        
+        $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return $result['accScore'];
+        } else {
+            return false;
+        }
+    } catch (PDOException $e) {
+        error_log("An error occurred. " . $e -> getMessage());
+        return false;
+    }
 }
 ?>
