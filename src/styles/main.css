@@ -16,6 +16,12 @@
   --gray: #707070;
 
   --background: #f0f0f0;
+
+  --rank-1: gold;
+  --rank-2: silver;
+  --rank-3: #cd7f32;
+  --rank-4: #8a2be2;
+  --rank-5: #00bfff;
 }
 
 * {
