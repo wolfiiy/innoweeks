@@ -15,15 +15,18 @@ function displayAccounts($conn) {
                     <th>ID</th>
                     <th>Username</th>
                     <th>Email</th>
+                    <th>Score</th>
                     <th>Actions</th>
                 </tr>";
     
         // Loop over users
         while ($row = $stmt -> fetch(PDO::FETCH_ASSOC)) {
+            $score = is_null($row["accScore"]) ? 0 : htmlspecialchars($row["accScore"]);
             echo "<tr>
                     <td>" . htmlspecialchars($row["idAccount"]) . "</td>
                     <td>" . htmlspecialchars($row["accUsername"]) . "</td>
                     <td>" . htmlspecialchars($row["accEmail"]) . "</td>
+                    <td>" . $score . "</td>
                     <td>
                         <a href='remoasfdsdfve-account.php?id=" . htmlspecialchars($row["idAccount"]) . "'>Edit</a> |
                         <a href='../scripts/remove-account.php?id=" . htmlspecialchars($row["idAccount"]) . "'>Delete</a>
@@ -44,7 +47,7 @@ function displayAccounts($conn) {
  * @return query Details of all accounts.
  */
 function getAccounts($conn) {
-    $sql = "SELECT idAccount, accUsername, accEmail FROM t_Account";
+    $sql = "SELECT idAccount, accUsername, accEmail, accScore FROM t_Account";
     $result = $conn -> query($sql);
     return $result;
 }
@@ -63,6 +66,7 @@ function displayTasks($conn) {
                     <th>ID</th>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Value</th>
                     <th>Complete</th>
                     <th>Actions</th>
                 </tr>";
@@ -73,6 +77,7 @@ function displayTasks($conn) {
                     <td>" . htmlspecialchars($row["idTask"]) . "</td>
                     <td>" . htmlspecialchars($row["tasName"]) . "</td>
                     <td>" . htmlspecialchars($row["tasDescription"]) . "</td>
+                    <td>" . htmlspecialchars($row["tasScore"]) . "</td>
                     <td>
                         <a href=\"../scripts/manage.php?action=completeTask&id=" 
                         . htmlspecialchars($row["idTask"]) 
@@ -98,7 +103,7 @@ function displayTasks($conn) {
  * @return query All tasks found in the database.
  */
 function getTasks($conn) {
-    $sql = "SELECT idTask, tasName, tasDescription FROM t_Task";
+    $sql = "SELECT idTask, tasName, tasDescription, tasScore FROM t_Task";
     $result = $conn -> query($sql);
     return $result;
 }
