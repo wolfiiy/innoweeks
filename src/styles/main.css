@@ -73,6 +73,11 @@ a {
   transition: all 0.1s ease-out;
 }
 
+.locked {
+  background: var(--accent-dark);
+  color: var(--background-neutral-light);
+}
+
 /*
  * Header
  */

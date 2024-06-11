@@ -103,20 +103,32 @@ function fillTaskContainer($conn) {
         $tasks = getTasks($conn);
 
         while ($row = $tasks -> fetch(PDO::FETCH_ASSOC)) {
+            $isDone = isTaskDone($conn, $row["idTask"]);
+            $btnClass = $isDone ? "locked " : "";
+            $btnText = $isDone ? "Complétée!" : "Valider";
+
             echo 
                "<div class=\"task-item\">
                     <div class=\"task-texts\">
                         <p class=\"task-name\">
-                            " . htmlspecialchars($row["tasName"]) . " | " . htmlspecialchars($row["tasScore"]) . "
+                            " . htmlspecialchars($row["tasName"]) . " | 
+                            " . htmlspecialchars($row["tasScore"]) . " 
+                            pts
                         </p>
 
                         <p class=\"task-description\">
-                            
+                            " . htmlspecialchars($row["tasDescription"]) . "
                         </p>
                     </div>
 
-                    <div class=\"rank rank-$styleCounter\">$counter</div>
-                    <div class=\"leaderboard-username\">" . htmlspecialchars($row["accUsername"]) . "</div>
+                    <a href=\"../scripts/manage.php?action=completeTask&id="
+                        . htmlspecialchars($row["idTask"])
+                        . "\" 
+                        class=\"button 
+                        " . $btnClass . "
+                        \">
+                        " . $btnText . "
+                    </a>
                 </div>";
         }
 
@@ -145,7 +157,7 @@ function displayTasks($conn) {
                     <th>Actions</th>
                 </tr>";
     
-        // Loop over users
+        // Loop over tasks
         while ($row = $stmt -> fetch(PDO::FETCH_ASSOC)) {
             echo "<tr>
                     <td>" . htmlspecialchars($row["idTask"]) . "</td>
@@ -155,7 +167,7 @@ function displayTasks($conn) {
                     <td>
                         <a href=\"../scripts/manage.php?action=completeTask&id=" 
                         . htmlspecialchars($row["idTask"]) 
-                        . "\">Complete</a>
+                        . "\">Valider</a>
                     </td>
                     <td>
                         <a href='update.php?id=" . htmlspecialchars($row["idTask"]) . "'>Edit</a> |
@@ -180,6 +192,30 @@ function getTasks($conn) {
     $sql = "SELECT idTask, tasName, tasDescription, tasScore FROM t_Task";
     $result = $conn -> query($sql);
     return $result;
+}
+
+/**
+ * Checks whether a task has already been done.
+ * @param PDO $conn Connection to the database.
+ * @param int $idTask ID of the task.
+ * @return true|false If the task is done, and false otherwise.
+ */
+function isTaskDone(PDO $conn, int $idTask) {
+    try {
+        $sql = "SELECT tasState FROM t_Task WHERE idTask = ?";
+        $stmt = $conn -> prepare($sql);
+        $stmt -> execute([$idTask]);
+        $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return $result['tasState'] === 0 ? false : true;
+        } else {
+            return false;
+        }
+    } catch (PDOException $e) {
+        error_log("An error occurred. " . $e -> getMessage());
+        return false;
+    }
 }
 
 ?>

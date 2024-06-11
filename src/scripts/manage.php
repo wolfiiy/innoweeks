@@ -118,9 +118,9 @@ function completeTask($conn, $id) {
     $tasScore = getTaskScore($conn, $id);
 
     try {
-        if (!isTaskAvailable($conn, $id)) {
+        if (isTaskDone($conn, $id)) {
             error_log("Task is already completed.");
-            header("Location: ../html/admin.php?error=task_already_completed");
+            header("Location: ../html/tasks.php?error=task_already_completed");
             return;
         }
 
@@ -244,7 +244,7 @@ function getScoreByAccountId($conn, $idAccount) {
  * @param PDO $conn Connection to the database.
  * @param int $idTask ID of the task.
  */
-function isTaskAvailable($conn, $idTask) {
+function isTaskDone($conn, $idTask) {
     try {
         $sql = "SELECT tasState FROM t_Task WHERE idTask = ?";
         $stmt = $conn -> prepare($sql);
@@ -252,7 +252,7 @@ function isTaskAvailable($conn, $idTask) {
         $result = $stmt -> fetch(PDO::FETCH_ASSOC);
 
         if ($result) {
-            return $result['tasState'] > 0 ? false : true;
+            return $result['tasState'] === 0 ? false : true;
         } else {
             return false;
         }
