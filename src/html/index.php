@@ -56,7 +56,7 @@
              id="home-mascots">
   
         <p id="home-mascots-text">
-          Salut! Nous c'est Eco et Lojie! Es-tu prêt à améliorer des habitudes écologiques avec nous?
+          Salut! Nous c'est Eco et Lojie! Es-tu prêt à améliorer tes habitudes écologiques avec nous?
         </p>
       </div>
 
