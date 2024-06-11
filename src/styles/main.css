@@ -14,10 +14,17 @@
   --gray-lighter: #d2d2d2;
   --gray-light: #9d9d9d;
   --gray: #707070;
+
+  --background: #f0f0f0;
 }
 
 * {
   font-family: 'Comic Sans MS';
+  text-decoration: none;
+}
+
+a {
+  color: var(--primary-darker);
 }
 
 /*
@@ -28,6 +35,15 @@ header {
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
+  background: white;
+}
+
+header a {
+  color: black;
+}
+
+header a:hover {
+  color: var(--primary-darker);
 }
 
 #logo {
@@ -44,12 +60,24 @@ header li {
   list-style: none;
 }
 
+#login-button {
+  padding: 0.2rem 0.8rem;
+  background: var(--primary);
+  border-radius: 5px;
+  color: white;
+}
+
+#login-button:hover {
+  background: var(--primary-darker);
+}
+
 /*
  * Body
  */
 body {
   margin: 0;
   padding: 0;
+  background: var(--background);
 }
 
 .content {
