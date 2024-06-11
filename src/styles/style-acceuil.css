@@ -1,74 +1,74 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: white;
-    padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 10px;
 }
 .logo {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 .tab {
-    background: none;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 16px;
+  background: none;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .tab:hover {
-    background-color: #fff;
+  background-color: #fff;
 }
 
 .login {
-    background-color: #4FB07B;
-    color: white;
-    border: none;
-    padding: 5px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-left: 20px;
+  background-color: #4FB07B;
+  color: white;
+  border: none;
+  padding: 5px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 20px;
 }
 .login:hover {
-    background-color: #2a972f;
+  background-color: #2a972f;
 }
 a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-    background-color: #f0f0f0;
-    padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  background-color: #f0f0f0;
+  padding: 20px;
 }
 
 .content {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .characters {
-    height: 150px;
-    margin-right: 20px;
+  height: 150px;
+  margin-right: 20px;
 }
 
 .oval-text {
-    padding: 10px 20px;
-    border: 2px solid #4FB07B;
-    border-radius: 50px;
-    text-align: center;
-    max-width: 300px;
+  padding: 10px 20px;
+  border: 2px solid #4FB07B;
+  border-radius: 50px;
+  text-align: center;
+  max-width: 300px;
 }
