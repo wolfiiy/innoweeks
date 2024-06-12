@@ -1,5 +1,6 @@
 <?php
 require_once 'connect.php';
+require_once 'helper.php';
 
 /**
  * Fills the leaderboard with usernames and scores.
@@ -33,16 +34,6 @@ function fillLeaderboard($conn) {
 }
 
 /**
- * Gets the ID, username and email of all users of the habit tracker web app.
- * @param PDO $conn Connection to the database. 
- */
-function getAccounts($conn) {
-    $sql = "SELECT idAccount, accUsername, accEmail, accScore FROM t_Account";
-    $result = $conn -> query($sql);
-    return $result;
-}
-
-/**
  * Retrieves user accounts, order by score.
  * @param PDO $conn Connection to the database.
  */
@@ -60,7 +51,7 @@ function getAccountsOrderedByScore($conn) {
  */
 function fillTaskContainer($conn) {
     try {
-        $tasks = getTasks($conn);
+        $tasks = Helper::getTasks($conn);
 
         while ($row = $tasks -> fetch(PDO::FETCH_ASSOC)) {
             $isDone = hasLoggedAccountCompletedTask($conn, $row["idTask"]);
@@ -96,17 +87,6 @@ function fillTaskContainer($conn) {
         error_log("An error occurred. " . $e -> getMessage());
         exit();
     }
-}
-
-/**
- * Gets the ID, name and description of every task found in the database.
- * @param PDO $conn Connection to the database.
- * @return query All tasks found in the database.
- */
-function getTasks($conn) {
-    $sql = "SELECT idTask, tasName, tasDescription, tasScore FROM t_Task";
-    $result = $conn -> query($sql);
-    return $result;
 }
 
 /**
