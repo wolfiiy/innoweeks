@@ -14,7 +14,7 @@ if (isset($_GET['action'])) {
 
     if ($_GET['action'] == 'completeTask') {
         $id = $_GET['id'];
-        completeTask($conn, $id);
+        completeTaskForAccount($conn, $id);
     }
 }
 
@@ -162,6 +162,64 @@ function completeTask($conn, $id) {
 }
 
 /**
+ * Marks a task as completed.
+ * @param PDO $conn Connection to the database.
+ * @param int $idTask ID of the task.
+ */
+function completeTaskForAccount($conn, $idTask) {
+    // Get task value
+    $tasScore = getTaskScore($conn, $idTask);
+
+    try {
+        // Because of this, usernames are required to be unique
+        // Session already started in manage.php
+        $accUsername = $_SESSION['username'];
+        $idAccount = getAccountByUsername($conn, $accUsername);
+        
+        // Do nothing if account could not be found
+        if ($idAccount === false) {
+            error_log("The username \"$accUsername\" does not exists.");
+            return;
+        }
+
+        // Do nothing if task was already completed
+        if (hasAccountCompletedTask($conn, $idTask, $idAccount)) {
+            error_log("Task is already completed.");
+            header("Location: ../html/tasks.php?error=task_already_completed");
+            return;
+        }
+
+        // Mark task as completed
+        $sqlComplete = "INSERT INTO Complete (idAccount, idTask, comState)
+                        VALUES (?, ?, 1)
+                        ON DUPLICATE KEY UPDATE comState = 1";
+        //$sqlTask = "UPDATE Complete 
+        //            SET comState = 1 
+        //            WHERE idAccount = ? AND idTask = ?";
+
+        $stmt = $conn -> prepare($sqlComplete);
+        $stmt -> execute([$idAccount, $idTask]);
+
+        // Add score to user account
+        $sqlUser = "UPDATE t_Account 
+                    SET accScore = ? 
+                    WHERE idAccount = ?";
+
+        $score = getScoreByAccountId($conn, $idAccount);
+        $score += $tasScore;
+        $stmt = $conn -> prepare($sqlUser);
+        $stmt -> execute([$score, $idAccount]);
+
+        error_log("Task $idTask completed by $accUsername.");
+        header("Location: ../html/admin.php");
+    } catch (PDOException $e) {
+        error_log("An error occurred. " . $e -> getMessage());
+        header("Location: ../html/admin.php?error=task_error");
+        exit();
+    }
+}
+
+/**
  * Gets the score value of a task.
  * @param PDO $conn Connection to the database.
  * @param int $id ID of the task.
@@ -260,5 +318,35 @@ function isTaskDone($conn, $idTask) {
         error_log("An error occurred. " . $e -> getMessage());
         return false;
     }
+}
+
+/**
+ * Given an account, returns the state of a task.
+ * @param PDO $conn Connection to the database.
+ * @param int $idTask ID of the task.
+ * @param int $idAccount ID of the account.
+ */
+function hasAccountCompletedTask($conn, $idTask, $idAccount) {
+    try {
+        $sql = "SELECT comState FROM Complete WHERE idAccount = ? AND idTask = ?";
+        $stmt = $conn -> prepare($sql);
+        $stmt -> execute([$idAccount, $idTask]);
+        $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return $result['comState'] === 1 ? true : false;
+        } else {
+            return false;
+        }
+    } catch (PDOException $e) {
+        error_log("An error occurred. " . $e -> getMessage());
+        return false;
+    }
+}
+
+function hasLoggedAccountCompletedTask($conn, $idTask) {
+    $accUsername = $_SESSION['username'];
+    $idAccount = getAccountByUsername($accUsername);
+    return hasAccountCompletedTask($conn, $idTask, $idAccount);
 }
 ?>

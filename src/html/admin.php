@@ -32,14 +32,14 @@
           <a href="tasks.php">Tâches</a>
         </li>
         <li>
-          <a href="TODO">Classement</a>
+          <a href="scores.php">Classement</a>
         </li>        
 
         <?php
           if(!isset($_SESSION['username']))
           { ?>
             <li>
-              <a href="signin.html" id="login-button">Connexion</a>
+              <a href="signin.html" class="button">Connexion</a>
             </li>
           <?php }
         ?>
@@ -47,7 +47,7 @@
           if(isset($_SESSION['username']))
           { ?>
             <li>
-              <a href="../scripts/signout.php" id="login-button">Déconnexion</a>
+              <a href="../scripts/signout.php" class="button">Déconnexion</a>
             </li>
           <?php }
         ?>

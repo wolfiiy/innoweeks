@@ -19,18 +19,22 @@ CREATE TABLE IF NOT EXISTS t_Task(
    PRIMARY KEY(idTask)
 );
 
-CREATE TABLE IF NOT EXISTS  Complete(
+CREATE TABLE IF NOT EXISTS Complete(
    idAccount INT,
    idTask INT,
+   comState BOOLEAN NOT NULL DEFAULT 0,
    PRIMARY KEY(idAccount, idTask),
    FOREIGN KEY(idAccount) REFERENCES t_Account(idAccount),
-   FOREIGN KEY(idTask) REFERENCES t_Task(idTask)
+   FOREIGN KEY(idTask) REFERENCES t_Task(idTask),
+   INDEX (idAccount),
+   INDEX (idTask)
 );
 
-CREATE TABLE IF NOT EXISTS  Befriend(
+CREATE TABLE IF NOT EXISTS Befriend(
    idAccount INT,
    idAccount_1 INT,
    PRIMARY KEY(idAccount, idAccount_1),
    FOREIGN KEY(idAccount) REFERENCES t_Account(idAccount),
-   FOREIGN KEY(idAccount_1) REFERENCES t_Account(idAccount)
+   FOREIGN KEY(idAccount_1) REFERENCES t_Account(idAccount),
+   CHECK (idAccount <> idAccount_1)
 );

@@ -103,7 +103,7 @@ function fillTaskContainer($conn) {
         $tasks = getTasks($conn);
 
         while ($row = $tasks -> fetch(PDO::FETCH_ASSOC)) {
-            $isDone = isTaskDone($conn, $row["idTask"]);
+            $isDone = hasLoggedAccountCompletedTask($conn, $row["idTask"]);
             $btnClass = $isDone ? "locked " : "";
             $btnText = $isDone ? "Complétée!" : "Valider";
 
@@ -218,4 +218,59 @@ function isTaskDone(PDO $conn, int $idTask) {
     }
 }
 
+/**
+ * Given an account, returns the state of a task.
+ * @param PDO $conn Connection to the database.
+ * @param int $idTask ID of the task.
+ * @param int $idAccount ID of the account.
+ */
+function hasAccountCompletedTask($conn, $idTask, $idAccount) {
+    try {
+        $sql = "SELECT comState FROM Complete WHERE idAccount = ? AND idTask = ?";
+        $stmt = $conn -> prepare($sql);
+        $stmt -> execute([$idAccount, $idTask]);
+        $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return $result['comState'] === 1 ? true : false;
+        } else {
+            return false;
+        }
+    } catch (PDOException $e) {
+        error_log("An error occurred. " . $e -> getMessage());
+        return false;
+    }
+}
+
+function hasLoggedAccountCompletedTask($conn, $idTask) {
+    $accUsername = $_SESSION['username'];
+    $idAccount = getAccountByUsername($conn, $accUsername);
+    return hasAccountCompletedTask($conn, $idTask, $idAccount);
+}
+
+/**
+ * Gets the account ID from the username.
+ * @param PDO $conn Connection to the database.
+ * @param string $username Username for which to fetch the account ID.
+ * @return int|false The account ID if found, false otherwise.
+ */
+function getAccountByUsername($conn, $username) {
+    try {
+        $sql = "SELECT idAccount FROM t_Account WHERE accUsername = ?";
+        $stmt = $conn -> prepare($sql);
+        $stmt -> execute([$username]);
+
+        $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return $result['idAccount'];
+        } else {
+            return false;
+        }
+
+    } catch (PDOException $e) {
+        error_log("An error occurred. " . $e -> getMessage());
+        return false;
+    }
+}
 ?>
