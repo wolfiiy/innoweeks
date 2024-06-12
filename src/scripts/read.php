@@ -6,9 +6,9 @@ require_once 'helper.php';
  * Fills the leaderboard with usernames and scores.
  * @param PDO $conn Connection to the database.
  */
-function fillLeaderboard($conn) {
+function fillLeaderboard(PDO $conn) {
     try {
-        $accounts = getAccountsOrderedByScore($conn);
+        $accounts = Helper::getAccountsOrderedByScore($conn);
         $counter = 0;
         $styleCounter = 0;
 
@@ -34,27 +34,17 @@ function fillLeaderboard($conn) {
 }
 
 /**
- * Retrieves user accounts, order by score.
- * @param PDO $conn Connection to the database.
- */
-function getAccountsOrderedByScore($conn) {
-    $sql = "SELECT idAccount, accUsername, accEmail, accScore 
-            FROM t_Account
-            ORDER BY accScore DESC";
-    $result = $conn -> query($sql);
-    return $result;
-}
-
-/**
  * Fills the tasks container.
  * @param PDO $conn Connection to the database.
  */
-function fillTaskContainer($conn) {
+function fillTaskContainer(PDO $conn) {
     try {
         $tasks = Helper::getTasks($conn);
+        $accUsername = $_SESSION['username'];
+        $idAccount = Helper::getAccountId($conn, $accUsername);
 
         while ($row = $tasks -> fetch(PDO::FETCH_ASSOC)) {
-            $isDone = hasLoggedAccountCompletedTask($conn, $row["idTask"]);
+            $isDone = Helper::getTaskState($conn, $idAccount, $row['idTask']);
             $btnClass = $isDone ? "locked " : "";
             $btnText = $isDone ? "Complétée!" : "Valider";
 
@@ -86,86 +76,6 @@ function fillTaskContainer($conn) {
     } catch (PDOException $e) {
         error_log("An error occurred. " . $e -> getMessage());
         exit();
-    }
-}
-
-/**
- * Checks whether a task has already been done.
- * @param PDO $conn Connection to the database.
- * @param int $idTask ID of the task.
- * @return true|false If the task is done, and false otherwise.
- */
-function isTaskDone(PDO $conn, int $idTask) {
-    try {
-        $sql = "SELECT tasState FROM t_Task WHERE idTask = ?";
-        $stmt = $conn -> prepare($sql);
-        $stmt -> execute([$idTask]);
-        $result = $stmt -> fetch(PDO::FETCH_ASSOC);
-
-        if ($result) {
-            return $result['tasState'] === 0 ? false : true;
-        } else {
-            return false;
-        }
-    } catch (PDOException $e) {
-        error_log("An error occurred. " . $e -> getMessage());
-        return false;
-    }
-}
-
-/**
- * Given an account, returns the state of a task.
- * @param PDO $conn Connection to the database.
- * @param int $idTask ID of the task.
- * @param int $idAccount ID of the account.
- */
-function hasAccountCompletedTask($conn, $idTask, $idAccount) {
-    try {
-        $sql = "SELECT comState FROM Complete WHERE idAccount = ? AND idTask = ?";
-        $stmt = $conn -> prepare($sql);
-        $stmt -> execute([$idAccount, $idTask]);
-        $result = $stmt -> fetch(PDO::FETCH_ASSOC);
-
-        if ($result) {
-            return $result['comState'] === 1 ? true : false;
-        } else {
-            return false;
-        }
-    } catch (PDOException $e) {
-        error_log("An error occurred. " . $e -> getMessage());
-        return false;
-    }
-}
-
-function hasLoggedAccountCompletedTask($conn, $idTask) {
-    $accUsername = $_SESSION['username'];
-    $idAccount = getAccountByUsername($conn, $accUsername);
-    return hasAccountCompletedTask($conn, $idTask, $idAccount);
-}
-
-/**
- * Gets the account ID from the username.
- * @param PDO $conn Connection to the database.
- * @param string $username Username for which to fetch the account ID.
- * @return int|false The account ID if found, false otherwise.
- */
-function getAccountByUsername($conn, $username) {
-    try {
-        $sql = "SELECT idAccount FROM t_Account WHERE accUsername = ?";
-        $stmt = $conn -> prepare($sql);
-        $stmt -> execute([$username]);
-
-        $result = $stmt -> fetch(PDO::FETCH_ASSOC);
-
-        if ($result) {
-            return $result['idAccount'];
-        } else {
-            return false;
-        }
-
-    } catch (PDOException $e) {
-        error_log("An error occurred. " . $e -> getMessage());
-        return false;
     }
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
-  require '../scripts/session-check.php';
-  require '../scripts/read.php';
+  require_once '../scripts/session-check.php';
+  require_once '../scripts/read.php';
 ?>
 
 <!DOCTYPE html>
