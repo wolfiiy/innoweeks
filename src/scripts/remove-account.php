@@ -1,8 +1,8 @@
 <?php
-require 'connect.php';
-require 'manage.php';
+require_once 'connect.php';
+require 'admin-tools.php';
 
 $id = $_GET['id'];
-removeAccount($id, $conn);
+removeAccountAsAdmin($id, $conn);
 $conn -> close();
 ?>

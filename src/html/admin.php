@@ -1,11 +1,12 @@
 <?php
-  require '../scripts/session-check.php';
+  require_once '../scripts/session-check.php';
   if ($_SESSION['username'] != "admin") {
     header("Location: ../html/index.php");
     alert("Use the admin account!"); // TODO
     exit();
   }
-
+  
+  require_once '../scripts/admin-tools.php';
   include "../scripts/read.php";
 ?>
 
@@ -58,13 +59,22 @@
   <main>
     <div class="content">
       <h1>Administration dashboard</h1>
-      <h2>Database</h2>
+      <h2>Database information</h2>
+      <h3>Registered accounts</h3>
+      <p>A list of all accounts currently registered in the database can be found below.</p>
+      <?php displayAllAccounts($conn);?>
+
+      <h3>Tasks</h3>
+      <p>A list of all tasks currently available to users is shown below.</p>
+      <?php displayAllTasks($conn);?>
+
+      <h2>Database management</h2>
       Database-related actions.
   
       <h3>Account creation</h3>
       <p>Fill in the following form to create a new account.</p>
       <div class="form-container">
-        <form class="form-account-creation" action="../scripts/manage.php?action=createAccount" method="POST">
+        <form class="form-account-creation" action="../scripts/admin-tools.php?action=createAccount" method="POST">
           <input type="text" name="email" placeholder="Adresse email" required>
           <input type="text" name="username" placeholder="Nom d'utilisateur" required>
           <input type="password" name="password" placeholder="Mot de passe" required>
@@ -77,7 +87,7 @@
       <h3>Task / habit creation</h3>
       <p>Fill in the following form to create a new task.</p>
       <div class="form-container">
-        <form action="../scripts/manage.php?action=createTask" method="POST">
+        <form action="../scripts/admin-tools.php?action=createTask" method="POST">
           <input type="text" name="task-name" placeholder="tasName" required>
           <input type="text" name="task-description" placeholder="tasDescription" required>
           <input type="number" name="task-score" placeholder="tasScore" required>
@@ -102,13 +112,6 @@
         To log out from user "<?php echo htmlspecialchars($_SESSION['username']); ?>", click
         <a href="../scripts/signout.php">here</a>.
       </p>
-
-      <h3>List users</h3>
-      <?php displayAccounts($conn);?>
-
-      <h3>List tasks</h3>
-      <?php displayTasks($conn);?>
-    </div>
   </main>
 
   <footer>

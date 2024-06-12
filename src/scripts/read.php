@@ -1,5 +1,5 @@
 <?php
-include 'connect.php';
+require_once 'connect.php';
 
 /**
  * Fills the leaderboard with usernames and scores.
@@ -29,46 +29,6 @@ function fillLeaderboard($conn) {
     } catch (PDOException $e) {
         error_log("An error occurred. " . $e -> getMessage());
         exit();
-    }
-}
-
-/**
- * Displays a table that contains all users found in the database.
- * @param PDO $conn Connection to the database.
- */
-function displayAccounts($conn) {
-    try {
-        $stmt = getAccounts($conn);
-    
-        // Create HTML table
-        echo "<table border='1'>
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Score</th>
-                    <th>Actions</th>
-                </tr>";
-    
-        // Loop over users
-        while ($row = $stmt -> fetch(PDO::FETCH_ASSOC)) {
-            $score = is_null($row["accScore"]) ? 0 : htmlspecialchars($row["accScore"]);
-            echo "<tr>
-                    <td>" . htmlspecialchars($row["idAccount"]) . "</td>
-                    <td>" . htmlspecialchars($row["accUsername"]) . "</td>
-                    <td>" . htmlspecialchars($row["accEmail"]) . "</td>
-                    <td>" . $score . "</td>
-                    <td>
-                        <a href='remoasfdsdfve-account.php?id=" . htmlspecialchars($row["idAccount"]) . "'>Edit</a> |
-                        <a href='../scripts/remove-account.php?id=" . htmlspecialchars($row["idAccount"]) . "'>Delete</a>
-                    </td>
-                </tr>";
-        }
-    
-        // Close HTML table
-        echo "</table>";
-    } catch (PDOException $e) {
-        error_log("Error." . $e -> getMessage());
     }
 }
 
@@ -135,51 +95,6 @@ function fillTaskContainer($conn) {
     } catch (PDOException $e) {
         error_log("An error occurred. " . $e -> getMessage());
         exit();
-    }
-}
-
-/**
- * Displays a table that contains all tasks found in the database.
- * @param PDO $conn Connection to the database.
- */
-function displayTasks($conn) {
-    try {
-        $stmt = getTasks($conn);
-    
-        // Create HTML table
-        echo "<table border='1'>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Value</th>
-                    <th>Complete</th>
-                    <th>Actions</th>
-                </tr>";
-    
-        // Loop over tasks
-        while ($row = $stmt -> fetch(PDO::FETCH_ASSOC)) {
-            echo "<tr>
-                    <td>" . htmlspecialchars($row["idTask"]) . "</td>
-                    <td>" . htmlspecialchars($row["tasName"]) . "</td>
-                    <td>" . htmlspecialchars($row["tasDescription"]) . "</td>
-                    <td>" . htmlspecialchars($row["tasScore"]) . "</td>
-                    <td>
-                        <a href=\"../scripts/manage.php?action=completeTask&id=" 
-                        . htmlspecialchars($row["idTask"]) 
-                        . "\">Valider</a>
-                    </td>
-                    <td>
-                        <a href='update.php?id=" . htmlspecialchars($row["idTask"]) . "'>Edit</a> |
-                        <a href='delete.php?id=" . htmlspecialchars($row["idTask"]) . "'>Delete</a>
-                    </td>
-                </tr>";
-        }
-    
-        // Close HTML table
-        echo "</table>";
-    } catch (PDOException $e) {
-        error_log("Error." . $e -> getMessage());
     }
 }
 

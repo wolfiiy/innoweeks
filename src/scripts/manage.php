@@ -4,22 +4,18 @@ require 'session-check.php';
 
 // Handle requests
 if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'createTask') {
-        createTask($conn);
+    if ($_GET['action'] == 'completeTask') {
+        $id = $_GET['id'];
+        completeTaskForAccount($conn, $id);
     }
 
     if ($_GET['action'] == 'createAccount') {
         createAccount($conn);
     }
-
-    if ($_GET['action'] == 'completeTask') {
-        $id = $_GET['id'];
-        completeTaskForAccount($conn, $id);
-    }
 }
 
 /**
- * Adds a new account to the database.
+ * Lets the user create a new account.
  * @param PDO $conn Connection to the database.
  */
 function createAccount($conn) {
@@ -56,57 +52,6 @@ function createAccount($conn) {
     
     header("Location: ../html/signin.html");
     exit();
-}
-
-/**
- * Removes an account from the database.
- * @param int $id ID of the account to remove.
- * @param PDO $conn Connection to the database.
- */
-function removeAccount($id, $conn) {
-    try {
-        $sql = "DELETE FROM t_Account WHERE idAccount = ?";
-        $stmt = $conn -> prepare($sql);
-        $stmt -> execute([$id]);
-
-        error_log("Account successfully removed.");
-        header("Location: ../html/admin.php");
-        exit();
-    } catch (PDOException $e) {
-        error_log("Could not remove account. " . $e -> getMessage());
-    }
-
-    header("Location: ../html/admin.php");
-}
-
-/**
- * Adds a new task to the database.
- * @param PDO $conn Connection to the database.
- */
-function createTask($conn) {
-    // Get input data iff POST request
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = $_POST['task-name'];
-        $description = $_POST['task-description'];
-        $score = $_POST['task-score'];
-        $state = 0;
-    
-        // Insert data into database
-        try {
-            $sql = "INSERT INTO t_Task (tasName, tasDescription, tasScore, tasState)
-                    VALUES (?, ?, ?, ?)";
-            $stmt = $conn -> prepare($sql);
-            $stmt -> execute([$name, $description, $score, $state]);
-            error_log("Task successfully created.");
-        } catch (PDOException $e) {
-            error_log("Task could not be created." . $e -> getMessage());
-            header("Location: ../html/admin.php?error=db_error");
-            exit();
-        }
-    
-        header("Location: ../html/admin.php");
-        exit();
-    }
 }
 
 /**
