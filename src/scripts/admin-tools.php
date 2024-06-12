@@ -16,6 +16,11 @@ if (isset($_GET['action'])) {
         $idAccount = $_GET['id'];
         removeAccountAsAdmin($conn, $idAccount);
     }
+
+    if ($_GET['action'] == 'removeTask') {
+        $idTask = $_GET['id'];
+        removeTaskAsAdmin($conn, $idTask);
+    }
 }
 
 /**
@@ -92,8 +97,9 @@ function createTaskAsAdmin(PDO $conn) {
 
 /**
  * Removes an account and all associated data from the database.
- * @param int $id ID of the account to remove.
  * @param PDO $conn Connection to the database.
+ * @param int $id ID of the account to remove.
+ * @throws PDOException If the query could not be completed.
  */
 function removeAccountAsAdmin(PDO $conn, $idAccount) {
     try {
@@ -116,6 +122,37 @@ function removeAccountAsAdmin(PDO $conn, $idAccount) {
         exit();
     }
 
+    header("Location: ../html/admin.php");
+}
+
+/**
+ * Removes a task and all associated data from the database. This will NOT
+ * alter any user score.
+ * @param PDO $conn Connection to the database.
+ * @param int $idTask ID of the task.
+ * @throws PDOException If the query could not be executed.
+ */
+function removeTaskAsAdmin(PDO $conn, int $idTask) {
+    try {
+        // Delete task records
+        $sql = "DELETE FROM Complete
+                WHERE idTask = ?";
+        $stmt = $conn -> prepare($sql);
+        $stmt -> execute([$idTask]);
+
+        // Delete task
+        $sql = "DELETE FROM t_Task
+                WHERE idTask = ?";
+        $stmt = $conn -> prepare($sql);
+        $stmt -> execute([$idTask]);
+
+        error_log("Successfully removed task.");
+    } catch (PDOException $e) {
+        error_log("Could not remove task. " . $e -> getMessage());
+        header("Location: ../html/admin.php?error=db_error");
+        exit();
+    }
+    
     header("Location: ../html/admin.php");
 }
 
@@ -179,7 +216,6 @@ function displayAllTasks($conn) {
                     <th>Name</th>
                     <th>Description</th>
                     <th>Value</th>
-                    <th>Complete</th>
                     <th>Actions</th>
                 </tr>";
     
@@ -191,13 +227,10 @@ function displayAllTasks($conn) {
                     <td>" . htmlspecialchars($row["tasDescription"]) . "</td>
                     <td>" . htmlspecialchars($row["tasScore"]) . "</td>
                     <td>
-                        <a href=\"../scripts/manage.php?action=completeTask&id=" 
-                        . htmlspecialchars($row["idTask"]) 
-                        . "\">Valider</a>
-                    </td>
-                    <td>
                         <a href='update.php?id=" . htmlspecialchars($row["idTask"]) . "'>Edit</a> |
-                        <a href='delete.php?id=" . htmlspecialchars($row["idTask"]) . "'>Delete</a>
+                        <a href='../scripts/admin-tools.php?action=removeTask&id=" 
+                            . htmlspecialchars($row["idTask"]) 
+                            . "'>Delete</a>
                     </td>
                 </tr>";
         }
