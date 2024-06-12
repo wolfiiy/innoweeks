@@ -57,58 +57,6 @@ function createAccount($conn) {
 /**
  * Marks a task as completed.
  * @param PDO $conn Connection to the database.
- * @param int $id ID of the task.
- */
-function completeTask($conn, $id) {
-    $tasScore = getTaskScore($conn, $id);
-
-    try {
-        if (isTaskDone($conn, $id)) {
-            error_log("Task is already completed.");
-            header("Location: ../html/tasks.php?error=task_already_completed");
-            return;
-        }
-
-        // Because of this, usernames are required to be unique
-        // Session already started in manage.php
-        $accUsername = $_SESSION['username'];
-        $idAccount = getAccountByUsername($conn, $accUsername);
-        
-        if ($idAccount === false) {
-            error_log("The username \"$accUsername\" does not exists.");
-            return;
-        }
-
-        // Mark task as completed
-        $sqlTask = "UPDATE t_Task 
-                    SET tasState = 1 
-                    WHERE idTask = ?";
-
-        $stmt = $conn -> prepare($sqlTask);
-        $stmt -> execute([$id]);
-
-        // Add score to user account
-        $sqlUser = "UPDATE t_Account 
-                    SET accScore = ? 
-                    WHERE idAccount = ?";
-
-        $score = getScoreByAccountId($conn, $idAccount);
-        $score += $tasScore;
-        $stmt = $conn -> prepare($sqlUser);
-        $stmt -> execute([$score, $idAccount]);
-
-        error_log("Task $id completed by $accUsername.");
-        header("Location: ../html/admin.php");
-    } catch (PDOException $e) {
-        error_log("An error occurred. " . $e -> getMessage());
-        header("Location: ../html/admin.php?error=task_error");
-        exit();
-    }
-}
-
-/**
- * Marks a task as completed.
- * @param PDO $conn Connection to the database.
  * @param int $idTask ID of the task.
  */
 function completeTaskForAccount($conn, $idTask) {
@@ -138,9 +86,6 @@ function completeTaskForAccount($conn, $idTask) {
         $sqlComplete = "INSERT INTO Complete (idAccount, idTask, comState)
                         VALUES (?, ?, 1)
                         ON DUPLICATE KEY UPDATE comState = 1";
-        //$sqlTask = "UPDATE Complete 
-        //            SET comState = 1 
-        //            WHERE idAccount = ? AND idTask = ?";
 
         $stmt = $conn -> prepare($sqlComplete);
         $stmt -> execute([$idAccount, $idTask]);

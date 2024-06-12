@@ -11,13 +11,19 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == 'createAccount') {
         createAccountAsAdmin($conn);
     }
+
+    if ($_GET['action'] == 'removeAccount') {
+        $idAccount = $_GET['id'];
+        removeAccountAsAdmin($conn, $idAccount);
+    }
 }
 
 /**
  * Adds a new account to the database.
  * @param PDO $conn Connection to the database.
+ * @throws PDOException If something went wrong while handling the query.
  */
-function createAccountAsAdmin($conn) {
+function createAccountAsAdmin(PDO $conn) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Form input
         $email = $_POST['email'];
@@ -42,7 +48,7 @@ function createAccountAsAdmin($conn) {
             $stmt = $conn -> prepare($sql);
             $stmt -> execute([$email, $username, $password, $age]);
             error_log("Account successfully created.");
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
             error_log("Account could not be created." . $e -> getMessage());
             header("Location: ../html/create-account.html?error=db_error");
             exit();
@@ -56,8 +62,9 @@ function createAccountAsAdmin($conn) {
 /**
  * Adds a new task to the database.
  * @param PDO $conn Connection to the database.
+ * @throws PDOException If something went wrong while handling the query.
  */
-function createTaskAsAdmin($conn) {
+function createTaskAsAdmin(PDO $conn) {
     // Get input data iff POST request
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $name = $_POST['task-name'];
@@ -88,11 +95,11 @@ function createTaskAsAdmin($conn) {
  * @param int $id ID of the account to remove.
  * @param PDO $conn Connection to the database.
  */
-function removeAccountAsAdmin($id, $conn) {
+function removeAccountAsAdmin(PDO $conn, int $idAccount) {
     try {
         $sql = "DELETE FROM t_Account WHERE idAccount = ?";
         $stmt = $conn -> prepare($sql);
-        $stmt -> execute([$id]);
+        $stmt -> execute([$idAccount]);
 
         error_log("Account successfully removed.");
         header("Location: ../html/admin.php");
@@ -124,15 +131,20 @@ function displayAllAccounts(PDO $conn) {
     
         // Loop over users
         while ($row = $stmt -> fetch(PDO::FETCH_ASSOC)) {
-            $score = is_null($row["accScore"]) ? 0 : htmlspecialchars($row["accScore"]);
+            $score = is_null($row["accScore"]) ? 
+                0 : htmlspecialchars($row["accScore"]);
             echo "<tr>
                     <td>" . htmlspecialchars($row["idAccount"]) . "</td>
                     <td>" . htmlspecialchars($row["accUsername"]) . "</td>
                     <td>" . htmlspecialchars($row["accEmail"]) . "</td>
                     <td>" . $score . "</td>
                     <td>
-                        <a href='TODOedit-account.php?id=" . htmlspecialchars($row["idAccount"]) . "'>Edit</a> |
-                        <a href='../scripts/remove-account.php?id=" . htmlspecialchars($row["idAccount"]) . "'>Delete</a>
+                        <a href='TODOedit-account.php?id=" 
+                            . htmlspecialchars($row["idAccount"]) 
+                            . "'>Edit</a> |
+                        <a href='../scripts/admin-tools.php?action=removeAccount&id=" 
+                            . htmlspecialchars($row["idAccount"]) 
+                            . "'>Delete</a>
                     </td>
                 </tr>";
         }
