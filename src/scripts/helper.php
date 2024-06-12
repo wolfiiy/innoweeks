@@ -1,6 +1,9 @@
 <?php
 require_once 'connect.php';
 
+/**
+ * Helper class containing various getters and conversion utilities.
+ */
 class Helper {
     /**
      * Gets the account ID from the username.
