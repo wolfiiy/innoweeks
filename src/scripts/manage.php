@@ -188,29 +188,6 @@ function getScoreByAccountId($conn, $idAccount) {
 }
 
 /**
- * Returns the state of a task.
- * @param PDO $conn Connection to the database.
- * @param int $idTask ID of the task.
- */
-function isTaskDone($conn, $idTask) {
-    try {
-        $sql = "SELECT tasState FROM t_Task WHERE idTask = ?";
-        $stmt = $conn -> prepare($sql);
-        $stmt -> execute([$idTask]);
-        $result = $stmt -> fetch(PDO::FETCH_ASSOC);
-
-        if ($result) {
-            return $result['tasState'] === 0 ? false : true;
-        } else {
-            return false;
-        }
-    } catch (PDOException $e) {
-        error_log("An error occurred. " . $e -> getMessage());
-        return false;
-    }
-}
-
-/**
  * Given an account, returns the state of a task.
  * @param PDO $conn Connection to the database.
  * @param int $idTask ID of the task.

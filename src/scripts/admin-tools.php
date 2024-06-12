@@ -91,21 +91,29 @@ function createTaskAsAdmin(PDO $conn) {
 }
 
 /**
- * Removes an account from the database.
+ * Removes an account and all associated data from the database.
  * @param int $id ID of the account to remove.
  * @param PDO $conn Connection to the database.
  */
-function removeAccountAsAdmin(PDO $conn, int $idAccount) {
+function removeAccountAsAdmin(PDO $conn, $idAccount) {
     try {
-        $sql = "DELETE FROM t_Account WHERE idAccount = ?";
+        // Delete task records of the account
+        $sql = "DELETE FROM Complete
+                WHERE idAccount = ?";
+        $stmt = $conn -> prepare($sql);
+        $stmt -> execute([$idAccount]);
+
+        // Delete the account itself
+        $sql = "DELETE FROM t_Account 
+                WHERE idAccount = ?";
         $stmt = $conn -> prepare($sql);
         $stmt -> execute([$idAccount]);
 
         error_log("Account successfully removed.");
-        header("Location: ../html/admin.php");
-        exit();
     } catch (PDOException $e) {
         error_log("Could not remove account. " . $e -> getMessage());
+        header("Location: ../html/admin.php?error=db_error");
+        exit();
     }
 
     header("Location: ../html/admin.php");
