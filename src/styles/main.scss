@@ -99,10 +99,10 @@ footer {
   color: var(--text-high-contrast);
 
   a {
-    color: var(--background-accent-light);
+    color: var(--accent);
 
     &:hover {
-      color: var(--primary-darker);
+      color: var(--accent-light);
     }
   }
 }
@@ -117,10 +117,12 @@ body {
   padding: 0;
   background: var(--background-neutral-light);
   color: var(--text);
+
+  @include transition(all);
 }
 
 a {
-  color: var(--primary-darker);
+  color: var(--accent);
   text-decoration: none;
 }
 
@@ -180,6 +182,10 @@ input {
   .button {
     width: fit-content;
   }
+}
+
+#dark-mode-toggle {
+  cursor: pointer;
 }
 
 #logo {
