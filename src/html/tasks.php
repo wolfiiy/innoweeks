@@ -10,6 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../styles/main.css">
   <link rel="stylesheet" href="../styles/tasks.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <script src="../js/main.js"></script>
   <title>Tâches</title>
 </head>
@@ -56,6 +57,35 @@
         ?>
       </ul>
     </nav>
+    <div>
+      <ul id="mobile-nav">
+        <li>
+          <a href="index.php">
+            <span class="material-symbols-outlined">home</span>
+          </a>
+        </li>
+        <li>
+          <a href="tasks.php">
+            <span class="material-symbols-outlined">task</span>
+          </a>
+        </li>
+        <li>
+          <a href="scores.php">
+            <span class="material-symbols-outlined">leaderboard</span>
+          </a>
+        </li>
+        <?php
+          if(isset($_SESSION['username']))
+          { ?>
+            <li>
+              <a href="my.php">
+                <span class="material-symbols-outlined">account_box</span>
+              </a>
+            </li>
+          <?php }
+        ?>
+      </ul>
+    </div>
   </header>
 
   <main>
