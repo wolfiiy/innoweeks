@@ -28,7 +28,15 @@
         </li>
         <li>
           <a href="scores.php">Classement</a>
-        </li>        
+        </li>
+        <?php
+          if(isset($_SESSION['username']))
+          { ?>
+            <li>
+              <a href="my.php">Mon compte</a>
+            </li>
+          <?php }
+        ?>
         <?php
           if(!isset($_SESSION['username']))
           { ?>

@@ -16,9 +16,8 @@ class Helper {
             $sql = "SELECT idAccount FROM t_Account WHERE accUsername = ?";
             $stmt = $conn -> prepare($sql);
             $stmt -> execute([$username]);
-    
             $result = $stmt -> fetch(PDO::FETCH_ASSOC);
-    
+
             if ($result) {
                 return $result['idAccount'];
             } else {
@@ -27,6 +26,48 @@ class Helper {
     
         } catch (PDOException $e) {
             error_log("An error occurred. " . $e -> getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Gets an account's email address.
+     * @param PDO $conn Connection to the database.
+     * @param string $username Username of the account.
+     * @return string|false The current email if found, false otherwise.
+     */
+    public static function getAccountEmail(PDO $conn, string $username) {
+        try {
+            $idAccount = self::getAccountId($conn, $username);
+            $sql = "SELECT accEmail FROM t_Account WHERE idAccount = ?";
+            $stmt = $conn -> prepare($sql);
+            $stmt -> execute([$idAccount]);
+            $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+            return $result ? $result['accEmail'] : false;
+        } catch (PDOException $e) {
+            error_log("An error ocurred. " . $e -> getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Gets an account's email address.
+     * @param PDO $conn Connection to the database.
+     * @param string $username Username of the account.
+     * @return int|false The current age if found, false otherwise.
+     */
+    public static function getAccountAge(PDO $conn, string $username) {
+        try {
+            $idAccount = self::getAccountId($conn, $username);
+            $sql = "SELECT accAge FROM t_Account WHERE idAccount = ?";
+            $stmt = $conn -> prepare($sql);
+            $stmt -> execute([$idAccount]);
+            $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+            return $result ? $result['accAge'] : false;
+        } catch (PDOException $e) {
+            error_log("An error ocurred. " . $e -> getMessage());
             return false;
         }
     }
