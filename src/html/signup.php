@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,21 +17,23 @@
       <div class="form-container">
         <img class="form-logo" src="../../assets/logo.png" alt="Logotype">
 
-        <h1>Connexion</h1>
-        <p>Veuillez renseigner vos identifiants.</p>
-        
-        <form class="form-account-signin" action="../scripts/signin.php" method="POST">
+        <h1>Créer un compte</h1>
+        <p>Veuillez renseigner vos informations.</p>
+
+        <form class="form-account-creation" action="../scripts/manage.php?action=createAccount" method="POST">
+          <input type="text" name="email" placeholder="Adresse email" required>
           <input type="text" name="username" placeholder="Nom d'utilisateur" required>
           <input type="password" name="password" placeholder="Mot de passe" required>
-          <button type="submit">Se connecter</button>
+          <input type="password" name="password-confirm" placeholder="Mot de passe (confirmer)" required>
+          <input type="number" name="age" placeholder="Age" required>
+          <button type="submit">Confirmer</button>
           <p class="form-bottom-text">
-            <a href="create-account.html">Créer un compte</a>
+            <a href="signin.php">Se connecter</a>
             |
             <a href="index.php">Accueil</a>
           </p>
         </form>
       </div>
-    </div>
   </main>
 </body>
 </html>

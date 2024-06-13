@@ -40,7 +40,7 @@
           if(!isset($_SESSION['username']))
           { ?>
             <li>
-              <a href="signin.html" class="button">Connexion</a>
+              <a href="signin.php" class="button">Connexion</a>
             </li>
           <?php }
         ?>

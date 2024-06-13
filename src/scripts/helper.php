@@ -60,6 +60,31 @@ class Helper {
     }
 
     /**
+     * Gets the current score of a given user.
+     * @param PDO $conn Connection to the database.
+     * @param int $idAccount ID of the account.
+     * @return int|false The score if found, false otherwise.
+     */
+    public static function getAccountScore(PDO $conn, int $idAccount) {
+        try {
+            $sql = "SELECT accScore FROM t_Account WHERE idAccount = ?";
+            $stmt = $conn -> prepare($sql);
+            $stmt -> execute([$idAccount]);
+            
+            $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+    
+            if ($result) {
+                return $result['accScore'];
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            error_log("An error occurred. " . $e -> getMessage());
+            return false;
+        }
+    }
+
+    /**
      * Gets the ID, name and description of every task found in the database.
      * @param PDO $conn Connection to the database.
      * @return PDOStatement All tasks found in the database.
@@ -69,6 +94,35 @@ class Helper {
                 FROM t_Task";
         $result = $conn -> query($sql);
         return $result;
+    }
+
+    /**
+     * Gets the score value of a task.
+     * @param PDO $conn Connection to the database.
+     * @param int $idTask ID of the task.
+     * @return int The score value of the task or -1 if it could not be found.
+     * @throws PDOException If an error occurred during the execution of the 
+     * query.
+     */
+    public static function getTaskScore(PDO $conn, int $idTask) {
+        $tasScore = -1;
+
+        try {
+            $sql = "SELECT tasScore FROM t_Task WHERE idTask = ?";
+            $stmt = $conn -> prepare($sql);
+            $stmt -> execute([$idTask]);
+            $stmt -> setFetchMode(PDO::FETCH_ASSOC);
+    
+            // Fetch result
+            $result = $stmt -> fetch();
+            if ($result) {
+                $tasScore = $result['tasScore'];
+            }
+        } catch (PDOException $e) {
+            error_log("An error occured. " . $e -> getMessage());
+        }
+    
+        return $tasScore;
     }
 
     /**
