@@ -62,7 +62,7 @@ function fillTaskContainer(PDO $conn) {
                         </p>
                     </div>
 
-                    <a href=\"../scripts/manage.php?action=completeTask&id="
+                    <a href=\"../scripts/user-tools.php?action=completeTask&id="
                         . htmlspecialchars($row["idTask"])
                         . "\" 
                         class=\"button 
