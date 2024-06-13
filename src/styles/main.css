@@ -10,6 +10,9 @@
   --background-dark-accent-light: #30312c;
   --background-dark-accent-dark: #171c16;
 
+  --text: black;
+  --text-high-contrast: var(--background-neutral-light);
+
   --accent-light: #f4fad6;
   --accent: #daeb7b;
   --accent-dark: #3f4b00;
@@ -42,6 +45,19 @@
   --rank-3: #cd7f32;
   --rank-4: #8a2be2;
   --rank-5: #00bfff;
+}
+
+.dark {
+  --background-accent-light: #eef4d2;
+  --background-accent-dark: #e0e6c4;
+
+  --background-neutral-light:#0f0f0e;
+  --background-neutral-dark: #171c16;
+
+  --background-dark-accent-light: #30312c;
+  --background-dark-accent-dark: #171c16;
+
+  --text: white;
 }
 
 * {
@@ -87,6 +103,7 @@ header {
   justify-content: space-between;
   align-items: center;
   background: var(--background-dark-accent-light);
+  color: var(--text-high-contrast);
 }
 
 header a, footer a {
@@ -133,6 +150,7 @@ body {
   margin: 0;
   padding: 0;
   background: var(--background-neutral-light);
+  color: var(--text);
 }
 
 .content {
@@ -155,5 +173,5 @@ footer {
   padding: 2ch 0;
 
   background: var(--background-dark-accent-light);
-  color: var(--background-neutral-dark);
+  color: var(--text-high-contrast);
 }

@@ -10,6 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../styles/main.css">
   <link rel="stylesheet" href="../styles/scores.css">
+  <script src="../js/main.js"></script>
   <title>Classement</title>
 </head>
 <body>
@@ -71,6 +72,10 @@
     <p>
       This website is 
       <a href="https://github.com/wolfiiy/innoweeks">open source</a>.
+    </p>
+
+    <p>
+      <a id="dark-mode-toggle">Switch themes</a>
     </p>
 
     <?php
