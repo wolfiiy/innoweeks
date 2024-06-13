@@ -27,9 +27,6 @@
           <a href="index.php">Accueil</a>
         </li>
         <li>
-          <a href="admin.php">Admin</a>
-        </li>
-        <li>
           <a href="tasks.php">Tâches</a>
         </li>
         <li>
@@ -119,6 +116,15 @@
       This website is 
       <a href="https://github.com/wolfiiy/innoweeks">open source</a>.
     </p>
+
+    <?php
+      if($_SESSION['username'] === "admin")
+        { ?>
+          <li>
+            <a href="admin.php">Administration dashboard</a>
+          </li>
+        <?php }
+      ?>
   </footer>
 </body>
 </html>
