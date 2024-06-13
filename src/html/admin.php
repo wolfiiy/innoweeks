@@ -120,9 +120,7 @@
     <?php
       if($_SESSION['username'] === "admin")
         { ?>
-          <li>
-            <a href="admin.php">Administration dashboard</a>
-          </li>
+          <a href="admin.php">Administration dashboard</a>
         <?php }
       ?>
   </footer>

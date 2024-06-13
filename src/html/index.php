@@ -62,7 +62,20 @@
 
       <h2>Présentation</h2>
       <p>
-        bla bla bla parler du projet bla bla bla
+        GreenHabits est une plateforme dédiée à encourager des comportements écologiques au quotidien. Notre mission est 
+        de fournir des outils et des ressources pour aider chacun à adopter des pratiques plus respectueuses de 
+        l'environnement. 
+      </p>
+
+      <p>
+        Sur GreenHabits, vous pouvez accomplir diverses tâches écologiques, suivre vos progrès et voir comment vous vous 
+        classez par rapport aux autres utilisateurs. Que vous soyez un débutant en matière d'écologie ou un expert, 
+        notre plateforme propose des défis adaptés à tous les niveaux.
+      </p>
+
+      <p>
+        GreenHabits à été développé à l'ETML dans le contexte des Innoweeks, deux semaines de cours dédiées au 
+        développement de projets innovants.
       </p>
     </div>
   </main>
@@ -76,9 +89,7 @@
     <?php
       if($_SESSION['username'] === "admin")
         { ?>
-          <li>
-            <a href="admin.php">Administration dashboard</a>
-          </li>
+          <a href="admin.php">Administration dashboard</a>
         <?php }
       ?>
   </footer>
