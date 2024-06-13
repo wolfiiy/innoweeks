@@ -20,7 +20,10 @@
 </head>
 <body>
   <header>
-    <img src="../../assets/logo.png" alt="Logotype" id="logo">
+    <a href="index.php">
+      <img src="../../assets/logo.png" alt="Logotype" id="logo">
+    </a>
+
     <nav>
       <ul>
         <li>
