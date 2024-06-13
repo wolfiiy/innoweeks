@@ -10,20 +10,8 @@ if (isset($_GET['action'])) {
         completeTask($conn, $id);
     }
 
-    if ($_GET['action'] == 'editUsername') {
-        editUsername($conn);
-    }
-
-    if ($_GET['action'] == 'editEmail') {
-        editEmail($conn);
-    }
-
-    if ($_GET['action'] == 'editPassword') {
-        editPassword($conn);
-    }
-
-    if ($_GET['action'] == 'editAge') {
-        editAge($conn);
+    if ($_GET['action'] == 'edit') {
+        edit($conn);
     }
 }
 
@@ -83,21 +71,62 @@ function completeTask($conn, $idTask) {
 }
 
 /**
- * Lets the user edit their username.
- * @param PDO $conn Connection to the database.
- * @throws PDOException If an error occurred executing the query.
+ * Lets the user edit their account data.
  */
-function editUsername($conn) {
+function edit(PDO $conn) {
     $accUsername = $_SESSION['username'];
-    if ($accUsername === "admin") {
-        header('Location: ' . $_SERVER['HTTP_REFERER'] 
-                            . "?error=admin_is_readonly");
+    $idAccount = Helper::getAccountId($conn, $accUsername);
+
+    $newUsername = $_POST['username'] ?? null;
+    $newEmail = $_POST['email'] ?? null;
+    $newAge = $_POST['age'] ?? null;
+    $newPassword = $_POST['password'] ?? null;
+    $confirmPassword = $_POST['password-confirm'] ?? null;
+
+    try {
+        // Update username if provided
+        if ($newUsername) {
+            if ($accUsername === "admin") {
+                header('Location: ' . $_SERVER['HTTP_REFERER'] 
+                                    . "?error=admin_is_readonly");
+                exit();
+            }
+
+            editUsername($conn, $idAccount, $newUsername);
+        }
+
+        // Update email if provided
+        if ($newEmail) {
+            editEmail($conn, $idAccount, $newEmail);
+        }
+
+        // Update age if provided
+        if ($newAge) {
+            editAge($conn, $idAccount, $newAge);
+        }
+
+        // Update password if provided and confirmed
+        if ($newPassword && $newPassword === $confirmPassword) {
+            editPassword($conn, $idAccount, $newPassword);
+        }
+
+        // Redirect back with success message
+        header('Location: ../html/my.php?success=1');
+        exit();
+    } catch (PDOException $e) {
+        error_log("An error occurred: " . $e->getMessage());
+        header('Location: ../html/my.php?error=db_error');
         exit();
     }
+}
 
-    $idAccount = Helper::getAccountId($conn, $accUsername);
-    $newUsername = $_POST['username'];
-
+/**
+ * Changes the account's username.
+ * @param PDO $conn Connection to the database.
+ * @param int $idAccount ID of the account.
+ * @param string $newUsername New username.
+ */
+function editUsername(PDO $conn, int $idAccount, string $newUsername) {
     try {
         $sql = "UPDATE t_Account
                 SET accUsername = ?
@@ -118,13 +147,10 @@ function editUsername($conn) {
 /**
  * Lets the user edit their age.
  * @param PDO $conn Connection to the database.
- * @throws PDOException if an error occurred executing the query.
+ * @param int $idAccount ID of the account.
+ * @param int $newAge New age.
  */
-function editAge($conn) {
-    $accUsername = $_SESSION['username'];
-    $idAccount = Helper::getAccountId($conn, $accUsername);
-    $newAge = $_POST['age'];
-
+function editAge(PDO $conn, int $idAccount, int $newAge) {
     try {
         $sql = "UPDATE t_Account
                 SET accAge = ?
@@ -142,13 +168,10 @@ function editAge($conn) {
 /**
  * Lets the user edit their email address.
  * @param PDO $conn Connection to the database.
- * @throws PDOException if an error occurred executing the query.
+ * @param int $idAccount ID of the account.
+ * @param string $newEmail New email address.
  */
-function editEmail($conn) {
-    $accUsername = $_SESSION['username'];
-    $idAccount = Helper::getAccountId($conn, $accUsername);
-    $newEmail = $_POST['email'];
-
+function editEmail(PDO $conn, int $idAccount, string $newEmail) {
     try {
         $sql = "UPDATE t_Account
                 SET accEmail = ?
@@ -156,6 +179,29 @@ function editEmail($conn) {
         $stmt = $conn -> prepare($sql);
         $stmt -> execute([$newEmail, $idAccount]);
         error_log("Email address of $idAccount updated.");
+    } catch (PDOException $e) {
+        throwDbError();
+    }
+
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+}
+
+/**
+ * Lets the user edit their email address.
+ * @param PDO $conn Connection to the database.
+ * @param int $idAccount ID of the account.
+ * @param string $newPassword New password.
+ * @throws PDOException if an error occurred executing the query.
+ */
+function editPassword(PDO $conn, int $idAccount, string $newPassword) {
+    try {
+        $newPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+        $sql = "UPDATE t_Account
+                SET accPassword = ?
+                WHERE idAccount = ?";
+        $stmt = $conn -> prepare($sql);
+        $stmt -> execute([$newPassword, $idAccount]);
+        error_log("Password of $idAccount updated.");
     } catch (PDOException $e) {
         throwDbError();
     }

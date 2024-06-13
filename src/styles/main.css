@@ -1,45 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 :root {
   --background-accent-light: #eef4d2;
   --background-accent-dark: #e0e6c4;
-
   --background-neutral-light: #fcf9f2;
   --background-neutral-dark: #f1f1e9;
-
   --background-dark-accent-light: #30312c;
   --background-dark-accent-dark: #171c16;
-
   --text: black;
   --text-high-contrast: var(--background-neutral-light);
-
   --accent-light: #f4fad6;
   --accent: #daeb7b;
   --accent-dark: #3f4b00;
-
   --accent-secondary: #3f4b00;
-  --accent-secondary-dark: #3a655b; 
-
+  --accent-secondary-dark: #3a655b;
   --foreground-light: #43453a;
-  --foreground: black; 
-
+  --foreground: black;
   --primary-darker: #688934;
   --primary-dark: #7c9c3c;
   --primary: #91b046;
   --primary-light: #a0c04e;
   --primary-lighter: #aec968;
   --primary-background: #f4f7e9;
-
-  --secondary-dark: #817a6d;
-  --secondary: #ac9c74;
-  --secondary-light: #c3b279;
-  --secondary-lighter: #d9c781;
-  --secondary-background: #fdfaee;
-
   --gray-lighter: #d2d2d2;
   --gray-light: #9d9d9d;
   --gray: #707070;
-
   --rank-1: gold;
   --rank-2: silver;
   --rank-3: #cd7f32;
@@ -50,53 +34,13 @@
 .dark {
   --background-accent-light: #eef4d2;
   --background-accent-dark: #e0e6c4;
-
   --background-neutral-light:#0f0f0e;
   --background-neutral-dark: #171c16;
-
   --background-dark-accent-light: #30312c;
   --background-dark-accent-dark: #171c16;
-
   --text: white;
 }
 
-* {
-  font-family: 'Roboto', sans-serif;
-  text-decoration: none;
-}
-
-a {
-  color: var(--primary-darker);
-}
-
-/*
- * Elements
- */
-.button {
-  padding: 0.7rem 0.8rem;
-  border-radius: 19px;
-
-  background: var(--accent);
-  color: var(--foreground-light);
-
-  transition: all 0.1s ease-out;
-}
-
-.button:hover {
-  background: var(--accent-dark);
-  color: var(--background-accent-dark);
-
-  transition: all 0.1s ease-out;
-}
-
-.locked {
-  background: var(--accent-dark);
-  color: var(--background-neutral-light);
-}
-
-/*
- * Header
- */
 header {
   display: flex;
   flex-flow: row wrap;
@@ -105,27 +49,106 @@ header {
   background: var(--background-dark-accent-light);
   color: var(--text-high-contrast);
 }
-
-header a, footer a {
+header a {
   color: var(--background-accent-light);
 }
-
-header a:hover, footer a:hover {
+header a:hover {
   color: var(--primary-darker);
+}
+header ul {
+  display: flex;
+  flex-flow: row wrap;
+}
+header li {
+  padding: 0 2ch;
+  list-style: none;
+}
+
+footer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2ch 0;
+  background: var(--background-dark-accent-light);
+  color: var(--text-high-contrast);
+}
+footer a {
+  color: var(--background-accent-light);
+}
+footer a:hover {
+  color: var(--primary-darker);
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  font: 100% "Roboto", sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: var(--background-neutral-light);
+  color: var(--text);
+}
+
+a {
+  color: var(--primary-darker);
+  text-decoration: none;
+}
+
+input {
+  font-size: 0.9rem;
+  height: 2.5rem;
+  margin: 0.75rem 0;
+  border: 1px solid var(--gray-light);
+  background: var(--background-neutral-light);
+  border-radius: 5px;
+}
+input::-moz-placeholder {
+  color: var(--gray);
+}
+input::placeholder {
+  color: var(--gray);
+}
+
+.button {
+  padding: 0.7rem 0.8rem;
+  border: none;
+  border-radius: 19px;
+  background: var(--accent);
+  color: var(--foreground-light);
+  font-size: 1rem;
+  transition: all 0.1s ease-out;
+}
+.button:hover {
+  background: var(--accent-dark);
+  color: var(--background-accent-dark);
+}
+.button.locked {
+  background: var(--accent-dark);
+  color: var(--background-neutral-light);
+}
+
+.wide-form {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.wide-form input.small {
+  max-width: 7ch;
+}
+.wide-form input.medium {
+  max-width: 28ch;
+}
+.wide-form input.large {
+  max-width: 35ch;
+}
+.wide-form .button {
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 #logo {
   padding: 0 2ch;
-}
-
-header nav ul {
-  display: flex;
-  flex-flow: row wrap;
-}
-
-header li {
-  padding: 0 2ch;
-  list-style: none;
 }
 
 #login-button {
@@ -139,39 +162,10 @@ header li {
   background: var(--primary-darker);
 }
 
-/*
- * Body
- */
-body {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  background: var(--background-neutral-light);
-  color: var(--text);
-}
-
 .content {
   max-width: 90ch;
   margin-left: auto;
   margin-right: auto;
   margin-top: 2rem;
   margin-bottom: 2rem;
-}
-
-/*
- * Footer
- */
-footer {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  align-items: center;
-
-  padding: 2ch 0;
-
-  background: var(--background-dark-accent-light);
-  color: var(--text-high-contrast);
-}
+}/*# sourceMappingURL=main.css.map */

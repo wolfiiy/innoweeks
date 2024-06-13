@@ -23,7 +23,7 @@
         <form class="form-account-signin" action="../scripts/signin.php" method="POST">
           <input type="text" name="username" placeholder="Nom d'utilisateur" required>
           <input type="password" name="password" placeholder="Mot de passe" required>
-          <button type="submit">Se connecter</button>
+          <button type="submit" class="button">Se connecter</button>
           <p class="form-bottom-text">
             <a href="signup.php">Créer un compte</a>
             |

@@ -64,50 +64,34 @@ require_once '../scripts/user-tools.php';
           echo $_SESSION['username'];
         ?>
       </h1>
-      Ici, vous pouvez modifier les informations associées à votre compte GreenHabits.
-
-      <h2>Nom d'utilisateur</h2>
       <p>
-        <?php
-          echo $_SESSION['username'];
-        ?>
+        Ici, vous pouvez modifier les informations associées à votre compte GreenHabits. Les champs laissés vides 
+        restent tels quels.
       </p>
-      <form action="../scripts/user-tools.php?action=editUsername" 
-            method="POST">
-        <input type="text" name="username" required>
-        <button type="submit">Valider</button>
-      </form>
 
-      <h2>Adresse e-mail</h2>
-      <p>
-        <?php
-          echo getAccountEmail($conn);
-        ?>
-      </p>
-      <form action="../scripts/user-tools.php?action=editEmail" 
-            method="POST">
-        <input type="text" name="email" required>
-        <button type="submit">Valider</button>
-      </form>
-
-      <h2>Mot de passe</h2>
-      <form action="../scripts/user-tools.php?action=editPassword" 
-            method="POST">
-        <input type="password" name="password" required>
-        <input type="password" name="password" required>
-        <button type="submit">Valider</button>
-      </form>
-
-      <h2>Age</h2>
-      <p>
-        <?php
-          echo getAccountAge($conn) . " ans";
-        ?>
-      </p>
-      <form action="../scripts/user-tools.php?action=editAge" 
-            method="POST">
-        <input type="number" name="age" required>
-        <button type="submit">Valider</button>
+      <form action="../scripts/user-tools.php?action=edit" 
+            method="post"
+            class = wide-form>
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" name="username" id="username" class="medium"
+               placeholder="<?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?>"
+        >
+        
+        <label for="email">Adresse mail</label>
+        <input type="text" name="email" id="email" class="large"
+                placeholder="<?php echo htmlspecialchars(getAccountEmail($conn) ?? ''); ?>"
+        >
+        
+        <label for="age">Age</label>
+        <input type="number" name="age" id="age" class="small"
+                placeholder="<?php echo htmlspecialchars(getAccountAge($conn) ?? ''); ?>"
+        >
+        
+        <label for="password">Mot de passe</label>
+        <input type="password" name="password" id="password" class="medium">
+        <input type="password" name="password-confirm" id="password-confirm" class="medium">
+        
+        <button type="submit" class="button">Valider</button>
       </form>
     </div>
   </main>

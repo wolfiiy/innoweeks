@@ -26,7 +26,7 @@
           <input type="password" name="password" placeholder="Mot de passe" required>
           <input type="password" name="password-confirm" placeholder="Mot de passe (confirmer)" required>
           <input type="number" name="age" placeholder="Age" required>
-          <button type="submit">Confirmer</button>
+          <button type="submit" class="button">Confirmer</button>
           <p class="form-bottom-text">
             <a href="signin.php">Se connecter</a>
             |
