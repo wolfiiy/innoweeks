@@ -1,0 +1,80 @@
+h2 {
+  margin-top: 0;
+  color: var(--background-dark-accent-light);
+}
+
+.content {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.leaderboard {
+  justify-self: center;
+  align-self: center;
+  color: black;
+  
+  padding: 20px;
+  width: 80%;
+  max-width: 65ch;
+  
+  background-color: var(--background-accent-light);
+  border-radius: 19px;
+}
+
+.leaderboard-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  padding: 0.85rem;
+  margin-bottom: 10px;
+  
+  background-color: var(--background-accent-dark);
+  border-radius: 15px;
+}
+
+.rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  width: 3ch;
+  height: 3ch;
+  
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+}
+
+.rank-1 {
+  background-color: var(--rank-1);
+}
+
+.rank-2 {
+  background-color: var(--rank-2);
+}
+
+.rank-3 {
+  background-color: var(--rank-3);
+}
+
+.rank-4 {
+  background-color: var(--rank-4);
+}
+
+.rank-5 {
+  background-color: var(--rank-5);
+}
+
+.points, .leaderboard-username {
+  font-size: 1.15rem;
+}
+
+.leaderboard-username {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.points {
+  font-weight: bold;
+}

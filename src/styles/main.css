@@ -7,20 +7,15 @@
   --background-dark-accent-light: #30312c;
   --background-dark-accent-dark: #171c16;
   --text: black;
+  --text-low-contrast: var(var(--background-dark-accent-light));
   --text-high-contrast: var(--background-neutral-light);
   --accent-light: #f4fad6;
   --accent: #daeb7b;
   --accent-dark: #3f4b00;
-  --accent-secondary: #3f4b00;
+  --accent-secondary: #91b046;
   --accent-secondary-dark: #3a655b;
   --foreground-light: #43453a;
   --foreground: black;
-  --primary-darker: #688934;
-  --primary-dark: #7c9c3c;
-  --primary: #91b046;
-  --primary-light: #a0c04e;
-  --primary-lighter: #aec968;
-  --primary-background: #f4f7e9;
   --gray-lighter: #d2d2d2;
   --gray-light: #9d9d9d;
   --gray: #707070;
@@ -32,12 +27,15 @@
 }
 
 .dark {
-  --background-accent-light: #eef4d2;
-  --background-accent-dark: #e0e6c4;
   --background-neutral-light:#0f0f0e;
   --background-neutral-dark: #171c16;
   --background-dark-accent-light: #30312c;
   --background-dark-accent-dark: #171c16;
+  --accent-light: #f4fad6;
+  --accent: #daeb7b;
+  --accent-dark: #3f4b00;
+  --accent-secondary: #91b046;
+  --accent-secondary-dark: #3a655b;
   --text: white;
 }
 
@@ -59,7 +57,7 @@ header a {
   color: var(--background-accent-light);
 }
 header a:hover {
-  color: var(--primary-darker);
+  color: var(--accent-dark);
 }
 
 nav ul {
@@ -172,17 +170,6 @@ input::placeholder {
 
 #logo {
   padding: 0 2ch;
-}
-
-#login-button {
-  padding: 0.2rem 0.8rem;
-  background: var(--primary);
-  border-radius: 5px;
-  color: white;
-}
-
-#login-button:hover {
-  background: var(--primary-darker);
 }
 
 .content {

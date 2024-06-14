@@ -74,9 +74,7 @@
     <?php
           if(!isset($_SESSION['username']))
           { ?>
-            <li>
-              <a href="signin.php" class="button">Connexion</a>
-            </li>
+            <a href="signin.php" class="button">Connexion</a>
           <?php }
         ?>
         <?php
@@ -132,10 +130,11 @@
     </p>
 
     <?php
-      if($_SESSION['username'] === "admin")
-        { ?>
-          <a href="admin.php">Administration dashboard</a>
-        <?php }
+      if(isset($_SESSION['username']))
+        if($_SESSION['username'] === "admin")
+          { ?>
+            <a href="admin.php">Administration dashboard</a>
+          <?php }
       ?>
   </footer>
 </body>

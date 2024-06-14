@@ -2,7 +2,7 @@
   display: flex;
   flex-flow: column nowrap;
   gap: 1rem;
-
+  color: black;
   padding: 1.5rem;
   background-color: var(--background-accent-light);
   border-radius: 19px;
@@ -13,23 +13,23 @@
   flex-flow: row wrap;
   align-items: center;
   justify-content: space-between;
-
   padding: 0.5rem 1rem;
-
+  color: black;
   background-color: var(--background-accent-dark);
   border-radius: 15px;
 }
 
 .task-item p {
+  color: black;
   margin: 0;
 }
 
 .task-name {
   width: 100%;
   font-weight: 500;
-  color: var(--background-dark-accent-dark);
+  color: var(--text);
 }
 
 .task-description {
-  color: var(--background-dark-accent-light);
-}
+  color: var(--text-low-contrast);
+}/*# sourceMappingURL=tasks.css.map */

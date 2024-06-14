@@ -81,9 +81,7 @@
     <?php
           if(!isset($_SESSION['username']))
           { ?>
-            <li>
-              <a href="signin.php" class="button">Connexion</a>
-            </li>
+            <a href="signin.php" class="button">Connexion</a>
           <?php }
         ?>
         <?php
