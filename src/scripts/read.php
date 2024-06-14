@@ -13,7 +13,7 @@ function fillLeaderboard(PDO $conn) {
         $styleCounter = 0;
 
         while ($row = $accounts -> fetch(PDO::FETCH_ASSOC)) {
-            if ($counter < 5) {
+            if ($counter < 4) {
                 $styleCounter++;
             }
 

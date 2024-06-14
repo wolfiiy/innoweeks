@@ -41,23 +41,19 @@ h2 {
 }
 
 .rank-1 {
-  background-color: var(--rank-1);
+  background-color: #ffd700;
 }
 
 .rank-2 {
-  background-color: var(--rank-2);
+  background-color: #c0c0c0;
 }
 
 .rank-3 {
-  background-color: var(--rank-3);
+  background-color: #cd7f32;
 }
 
 .rank-4 {
-  background-color: var(--rank-4);
-}
-
-.rank-5 {
-  background-color: var(--rank-5);
+  background-color: #505050;
 }
 
 .points, .leaderboard-username {

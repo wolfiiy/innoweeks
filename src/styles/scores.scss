@@ -1,3 +1,5 @@
+@import "./colors";
+
 h2 {
   margin-top: 0;
   color: var(--background-dark-accent-light);
@@ -47,23 +49,19 @@ h2 {
 }
 
 .rank-1 {
-  background-color: var(--rank-1);
+  background-color: $rank1;
 }
 
 .rank-2 {
-  background-color: var(--rank-2);
+  background-color: $rank2;
 }
 
 .rank-3 {
-  background-color: var(--rank-3);
+  background-color: $rank3;
 }
 
 .rank-4 {
-  background-color: var(--rank-4);
-}
-
-.rank-5 {
-  background-color: var(--rank-5);
+  background-color: $rank4;
 }
 
 .points, .leaderboard-username {
