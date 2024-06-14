@@ -25,6 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } else {
         error_log("Username or password is invalid.");
+        header("Location: ../html/signin.php?error=invalid_credentials");
+        exit();
     }
 }
 ?>

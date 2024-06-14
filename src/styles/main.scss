@@ -62,12 +62,20 @@ $font-stack: 'Roboto', sans-serif;
 
 header {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
   background: var(--background-dark-accent-light);
   color: var(--text-high-contrast);
-  
+
+  img {
+    margin-left: 3ch;
+  }
+
+  .button {
+    margin-right: 3ch;
+  }
+
   a {
     color: var(--background-accent-light);
     
@@ -75,19 +83,29 @@ header {
       color: var(--primary-darker);
     }
   }
+}
 
+nav {
   ul {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+    list-style-type: 0;
   }
 
   li {
-    padding: 0 2ch;
-    list-style: none;
+    padding: 0ch 5ch;
   }
 }
 
-#mobile-nav {
+#mobile-nav,
+#mobile-nav-container {
   display: none;
 }
 
@@ -128,6 +146,7 @@ body {
 a {
   color: var(--accent);
   text-decoration: none;
+  @include transition(all);
 }
 
 input {
@@ -215,13 +234,23 @@ input {
   margin-bottom: 2rem;
 }
 
+@media only screen and (max-width: 950px) {
+  nav li {
+    padding: 0ch 3ch;
+  }
+}
+
 @media only screen and (max-width: 800px) {
   header {
     justify-content: space-between;
   }
 
-  nav ul li:not(:last-child) {
+  nav {
     display: none;
+  }
+
+  #mobile-nav-container {
+    display: block;
   }
 
   #mobile-nav {

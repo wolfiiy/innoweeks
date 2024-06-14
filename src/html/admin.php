@@ -21,7 +21,7 @@
   <title>Admin dashboard</title>
 </head>
 <body>
-  <header>
+<header>
     <a href="index.php">
       <img src="../../assets/logo.png" alt="Logotype" id="logo">
     </a>
@@ -36,7 +36,7 @@
         </li>
         <li>
           <a href="scores.php">Classement</a>
-        </li>  
+        </li>
         <?php
           if(isset($_SESSION['username']))
           { ?>
@@ -44,26 +44,11 @@
               <a href="my.php">Mon compte</a>
             </li>
           <?php }
-        ?>      
-        <?php
-          if(!isset($_SESSION['username']))
-          { ?>
-            <li>
-              <a href="signin.php" class="button">Connexion</a>
-            </li>
-          <?php }
-        ?>
-        <?php
-          if(isset($_SESSION['username']))
-          { ?>
-            <li>
-              <a href="../scripts/signout.php" class="button">Déconnexion</a>
-            </li>
-          <?php }
         ?>
       </ul>
     </nav>
-    <div>
+
+    <div id="mobile-nav-container">
       <ul id="mobile-nav">
         <li>
           <a href="index.php">
@@ -92,6 +77,21 @@
         ?>
       </ul>
     </div>
+
+    <?php
+          if(!isset($_SESSION['username']))
+          { ?>
+            <li>
+              <a href="signin.php" class="button">Connexion</a>
+            </li>
+          <?php }
+        ?>
+        <?php
+          if(isset($_SESSION['username']))
+          { ?>
+            <a href="../scripts/signout.php" class="button">Déconnexion</a>
+          <?php }
+        ?>
   </header>
 
   <main>
