@@ -1,10 +1,10 @@
 <?php
-  require_once '../scripts/session-check.php';
-  if ($_SESSION['username'] != "admin") {
-    header("Location: ../html/index.php");
-    alert("Use the admin account!"); // TODO
-    exit();
-  }
+  // require_once '../scripts/session-check.php';
+  // if ($_SESSION['username'] != "admin") {
+  //   header("Location: ../html/index.php");
+  //   alert("Use the admin account!"); // TODO
+  //   exit();
+  // }
   
   require_once '../scripts/admin-tools.php';
   include "../scripts/read.php";

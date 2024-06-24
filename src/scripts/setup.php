@@ -5,7 +5,7 @@ include 'settings.php';
  * Creates a database using settings found in the 'settings.php' file.
  */
 function createDatabase() {
-    $conn = new mysqli (DB_HOST, DB_USER, DB_PASSWORD);
+    $conn = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
     $sql = "CREATE DATABASE " . DB_NAME;
 
     // Check connection
@@ -21,8 +21,7 @@ function createDatabase() {
     }
 
     // Go back to the admin panel
-    header("Location: ../html/admin.php");
-    $conn -> close();
+    header("Location: " . $_SERVER["HTTP_REFERER"]);
 }
 
 /**
@@ -39,19 +38,13 @@ function createTables() {
         }
 
         // Connect to database
-        $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+        $conn = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
         if ($conn -> connect_error) {
             die ("Connection failed. " . $conn -> connect_error);
         }
 
-        // Get all queries from file
-        if ($conn -> multi_query($sql)) {
-            do {
-                if ($result = $conn -> store_result()) {
-                    $result -> free();
-                }
-            } while ($conn -> more_results() && $conn -> next_result());
-        }
+        // Create tables
+        $conn -> exec($sql);
 
         error_log("Tables successfully created.");
     } catch (Exception $e) {
@@ -59,7 +52,6 @@ function createTables() {
     }
 
     header("Location: " . $_SERVER["HTTP_REFERER"]);
-    $conn -> close();
 }
 
 // Handle calling <a> tags
